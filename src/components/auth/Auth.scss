@@ -1,0 +1,98 @@
+.auth-modal > .modal-dialog > .modal-content {
+  -webkit-backdrop-filter: blur(10px); /* assure la compatibilité avec safari */
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  border: none;
+}
+
+.auth-modal > .modal-dialog {
+  width: 25rem;
+}
+
+.form-control.auth-input,
+.signup-dropdown {
+  height: 40px;
+  color: white;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  border: none;
+}
+
+.form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white;
+  opacity: 1; /* Firefox */
+}
+
+.icon {
+  height: 2em;
+  width: 2em;
+}
+
+.sign-in,
+.sign-up-member,
+.sign-up-customer,
+.close {
+  height: 40px;
+  color: white;
+  font-size: 1rem;
+  font-weight: 400;
+  border-radius: 25px;
+  border: none;
+}
+
+.sign-in {
+  background: linear-gradient(to right, rgb(2, 0, 34), rgb(26, 11, 233));
+}
+
+.sign-up-customer {
+  background: linear-gradient(to right, rgb(4, 46, 17), rgb(19, 114, 47));
+}
+
+.sign-up-member {
+  background: linear-gradient(to right, rgb(63, 26, 6), rgb(133, 61, 22));
+}
+
+.sign-in {
+  width: 65%;
+}
+
+.sign-up-customer,
+.sign-up-member {
+  width: 60%;
+}
+
+.close {
+  font-size: 1.2em;
+  width: 30%;
+  background-color: rgb(255, 45, 45);
+}
+
+.separate {
+  width: 95%;
+  height: 6px;
+  border-radius: 4px;
+  border: none;
+  background: linear-gradient(to right, rgb(2, 0, 34), rgb(26, 11, 233));
+}
+
+.change-forgot-password,
+.signup-dropdown > .dropdown-toggle {
+  border: none;
+  background-color: transparent;
+  color: white;
+}
+
+.signup-dropdown > .dropdown-toggle {
+  font-size: 1rem;
+  width: 100%;
+  padding-top: 6px;
+  text-align: start;
+}
+
+.signup-dropdown > .dropdown-toggle:hover {
+  background-color: transparent !important;
+  border: none;
+}

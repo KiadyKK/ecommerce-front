@@ -1,0 +1,75 @@
+.button-menu-toggle,
+.button-nav-child {
+  background: none;
+  border: none;
+}
+
+.item,
+.sub-item,
+.button-nav-child {
+  color: rgb(185, 185, 185);
+}
+
+.button-menu-toggle {
+  margin: 5px 0px;
+  padding-right: 9px;
+  color: rgb(26, 26, 214);
+}
+
+.menu-toggle {
+  width: 38px;
+  height: 38px;
+}
+
+.icon-nav {
+  min-width: 25px;
+  min-height: 25px;
+}
+
+.icon-nav-side {
+  min-width: 15px;
+  min-height: 15px;
+}
+
+.nav-menu-items {
+  list-style: none;
+}
+
+.item,
+.sub-item {
+  text-decoration: none !important;
+  padding: 0px 10px;
+  height: 37px;
+  display: flex;
+}
+
+.item:hover,
+.item.active,
+.sub-item:hover,
+.sub-item.active {
+  color: whitesmoke;
+}
+
+.item.active {
+  font-weight: bold;
+  border-left: 6px solid whitesmoke;
+}
+
+.sub-item.active {
+  font-weight: bold;
+  border-left: 6px solid #0d6efd;
+}
+
+.item-title {
+  overflow: hidden;
+  white-space: nowrap;
+  padding-right: 10px;
+}
+
+.bar {
+  right: 0px;
+  width: 1px !important;
+  height: 100% !important;
+  padding-right: 10px;
+  border-left: 1px solid rgb(100, 100, 100);
+}

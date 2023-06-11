@@ -1,0 +1,52 @@
+.wrap-config {
+  background-color: aliceblue;
+}
+
+.config-details,
+.config-articles {
+  height: 200px;
+  width: 200px;
+  color: whitesmoke;
+}
+
+.config-details {
+  transition: 0.2s;
+  box-shadow: 5px 5px 20px rgba(46, 46, 46, 0.8);
+  background-color: rgba(16, 6, 160, 0.8);
+}
+
+.config-articles {
+  transition: 0.2s;
+  box-shadow: 5px 5px 20px rgba(46, 46, 46, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.config-details:hover,
+.config-articles:hover {
+  color: whitesmoke;
+  box-shadow: 10px 10px 20px rgba(45, 46, 129, 0.8);
+  transform: scale(1.1, 1.1);
+}
+
+.config-details:hover {
+  background-color: rgba(43, 34, 172, 0.8);
+}
+
+.config-articles:hover {
+  background-color: rgba(46, 46, 46, 0.8);
+}
+
+.details-icon {
+  border-radius: 20px;
+  border: 4px solid whitesmoke;
+}
+
+.sub-right {
+  height: 83%;
+}
+
+.sub-right-title-icon {
+  margin-right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+}
