@@ -1,0 +1,20 @@
+.body-admin {
+  width: calc(100% - 3rem);
+  height: 100vh;
+  margin-left: 3rem;
+  z-index: 0;
+  position: relative;
+  // top: 50px;
+  transition: all 0.5s ease;
+  font-size: 14px;
+}
+
+.body-trimmed {
+  width: calc(100% - 15rem);
+  margin-left: 15rem;
+}
+
+.body-md-screen {
+  width: calc(100% - 3rem);
+  margin-left: 3rem;
+}

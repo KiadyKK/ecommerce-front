@@ -1,53 +1,72 @@
-import { FC, useState, useEffect } from "react";
-import { Routes, Route, NavLink, useNavigate } from "react-router-dom";
-import * as Icon from "react-bootstrap-icons";
 import "bootstrap/dist/css/bootstrap.min.css";
+import React, { FC, PropsWithChildren, useEffect, useState } from "react";
+import * as Icon from "react-icons/bs";
+import * as IconMD from "react-icons/md";
+import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.scss";
-import Auth from "./components/auth/Auth";
-import Home from "./components/home/Home";
-import Profile from "./components/profile/Profile";
+// import Auth from "./components/auth/Auth";
+// import Home from "./components/home/Home";
+// import Profile from "./components/profile/Profile";
 import Logo from "./assets/images/Logo.png";
 import Admin from "./components/admin/Admin";
-import * as AuthService from "./services/auth.service";
+import Auth from "./components/auth/Auth";
+import * as StorageService from "./services/storage.service";
 
-type NavProps = {
+type NavProps = PropsWithChildren<{
   url: string;
-  menu: string;
-};
+}>;
 
-const Nav: FC<NavProps> = ({ url, menu }) => {
+const Nav: FC<NavProps> = ({ url, children }): React.ReactElement => {
   return (
     <li className="nav-item mx-4">
       <NavLink to={url} className="nav-link">
-        {menu}
+        {children}
       </NavLink>
     </li>
   );
 };
 
-const App: FC = () => {
+const App: FC = (): React.ReactElement => {
+  const [theme, setTheme] = useState<boolean>(false);
   const [isNavCollapsed, setIsNavCollapsed] = useState<boolean>(true);
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [role, setRole] = useState<string | null>(null);
   const [authStatus, setAuthStatus] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleNavCollapse = () =>
+  const handleNavCollapse = (): void =>
     setIsNavCollapsed((isNavCollapsed) => !isNavCollapsed);
 
   useEffect(() => {
-    const user: string | null = AuthService.getCurrentUser();
-    if (user) setCurrentUser(user);
+    setCurrentUser(StorageService.getItem("username"));
+    setRole(StorageService.getItem("role"));
+    setLightMode();
   }, []);
 
-  const logOut = () => {
-    AuthService.logout();
+  const logOut = (): void => {
+    StorageService.clear();
     setCurrentUser(null);
     navigate("/home");
   };
 
+  const setDarkMode = (): void => {
+    document.querySelector("body")!.setAttribute("data-theme", "dark");
+  };
+
+  const setLightMode = (): void => {
+    document.querySelector("body")!.setAttribute("data-theme", "light");
+  };
+
+  const toggleTheme = (): void => {
+    theme ? setLightMode() : setDarkMode();
+    setTheme((theme) => !theme);
+  };
+
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top px-4">
+      <nav
+        className={`navbar navbar-expand-lg navbar-dark fixed-top px-4 nav-menu`}
+      >
         <img src={Logo} alt="logo mern" />
         <button
           className="custom-toggler navbar-toggler"
@@ -66,28 +85,38 @@ const App: FC = () => {
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav mx-auto">
-            <Nav url={"/about"} menu={"About"} />
-            <Nav url={"/home"} menu={"Home"} />
-            <Nav url={"/shop"} menu={"Shop"} />
-            <Nav url={"/promotion"} menu={"Promotion"} />
-            <Nav url={"/contact"} menu={"Contact"} />
-            {currentUser && <Nav url={"/admin"} menu={"Admin"} />}
+            <Nav url={"/about"}>About</Nav>
+            <Nav url={"/home"}>Home</Nav>
+            <Nav url={"/shop"}>Shop</Nav>
+            <Nav url={"/promotion"}>Promotion</Nav>
+            <Nav url={"/contact"}>Contact</Nav>
+            {currentUser && role === "Administrateur" && (
+              <Nav url={"/admin"}>Administration</Nav>
+            )}
           </ul>
+
+          <button className="button-menu-toggle" onClick={toggleTheme}>
+            {theme ? (
+              <IconMD.MdNightlight className="menu-toggle" />
+            ) : (
+              <IconMD.MdLightMode className="menu-toggle" />
+            )}
+          </button>
 
           {currentUser ? (
             <ul className="navbar-nav">
               <li className="nav-item">
                 <NavLink to={"/profile"} className="nav-link me-1">
-                  {currentUser.username}
+                  {currentUser}
                 </NavLink>
               </li>
               <li className="nav-item">
                 <button
                   type="button"
-                  className="log btn btn-primary"
+                  className="log btn btn-outline-primary"
                   onClick={logOut}
                 >
-                  <Icon.PersonCircle className="me-1" /> Logout
+                  <Icon.BsPersonCircle className="me-1" /> Logout
                 </button>
               </li>
             </ul>
@@ -96,10 +125,10 @@ const App: FC = () => {
               <li className="nav-item">
                 <button
                   type="button"
-                  className="log btn btn-outline-primary"
+                  className="log btn btn-primary"
                   onClick={() => setAuthStatus(true)}
                 >
-                  <Icon.PersonCircle className="me-1" /> Login
+                  <Icon.BsPersonCircle className="me-1" /> Login
                 </button>
               </li>
             </ul>
@@ -111,10 +140,10 @@ const App: FC = () => {
 
       <div className="body">
         <Routes>
-          <Route path="/" element={<Home />} />
+          {/* <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Home />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} /> */}
           <Route path="/admin/*" element={<Admin />} />
         </Routes>
       </div>

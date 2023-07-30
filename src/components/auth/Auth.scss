@@ -16,7 +16,7 @@
   color: white;
   font-size: 1rem;
   background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
+  border-radius: 20px !important;
   border: none;
 }
 
@@ -32,8 +32,7 @@
 }
 
 .sign-in,
-.sign-up-member,
-.sign-up-customer,
+.sign-up,
 .close {
   height: 40px;
   color: white;
@@ -47,21 +46,12 @@
   background: linear-gradient(to right, rgb(2, 0, 34), rgb(26, 11, 233));
 }
 
-.sign-up-customer {
+.sign-up {
   background: linear-gradient(to right, rgb(4, 46, 17), rgb(19, 114, 47));
 }
 
-.sign-up-member {
-  background: linear-gradient(to right, rgb(63, 26, 6), rgb(133, 61, 22));
-}
-
-.sign-in {
+.sign-in, .sign-up {
   width: 65%;
-}
-
-.sign-up-customer,
-.sign-up-member {
-  width: 60%;
 }
 
 .close {
@@ -72,8 +62,8 @@
 
 .separate {
   width: 95%;
-  height: 6px;
-  border-radius: 4px;
+  height: 3px;
+  border-radius: 2px;
   border: none;
   background: linear-gradient(to right, rgb(2, 0, 34), rgb(26, 11, 233));
 }
@@ -85,14 +75,6 @@
   color: white;
 }
 
-.signup-dropdown > .dropdown-toggle {
-  font-size: 1rem;
-  width: 100%;
-  padding-top: 6px;
-  text-align: start;
-}
-
-.signup-dropdown > .dropdown-toggle:hover {
-  background-color: transparent !important;
-  border: none;
+.signup-dropdown > option {
+  color: #000;
 }
