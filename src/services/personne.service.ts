@@ -1,15 +1,15 @@
-import axios from "axios"; 
+import http from "../helpers/interceptors/axiosInterceptor";
 
-const API_URL = process.env.REACT_APP_API_URL + "/personne";
+const URL = "/personne";
 
 export const signup = (data: any) => {
-  return axios.post(API_URL + "/signup", data);
+  return http.post(URL + "/signup", data);
 };
 
 export const signin = async (data: any) => {
-  return await axios.post(API_URL + "/signin", data);
+  return await http.post(URL + "/signin", data);
 };
 
-export const logout = () => {
-  localStorage.removeItem("user");
+export const getAll = (username: string) => {
+  return http.get(URL + `?username=${username}`);
 };

@@ -1,5 +1,7 @@
 import { ReactElement } from "react";
-import * as Icon from "react-icons/bs";
+import * as IconBs from "react-icons/bs";
+import * as IconFa from "react-icons/fa";
+import * as IconTi from "react-icons/ti";
 
 export interface InavbarDataChild {
   label: string;
@@ -17,35 +19,35 @@ export interface InavbarData {
 export const navbarData: InavbarData[] = [
   {
     link: "staff",
-    icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+    icon: <IconTi.TiGroup className="sidenav-link-icon me-2" />,
     label: "Staff",
     childs: [
       {
         label: "Confirm",
         link: "staff/confirm",
-        icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+        icon: <IconBs.BsFillPersonCheckFill className="sidenav-link-icon me-2" />,
       },
       {
         label: "List",
         link: "staff/list",
-        icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+        icon: <IconFa.FaListUl className="sidenav-link-icon me-2" />,
       },
     ],
   },
   {
     link: "customers",
-    icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+    icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
     label: "Customers",
   },
   {
     link: "staff1",
-    icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+    icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
     label: "Staff1",
     childs: [
       {
         label: "Confirm1",
         link: "staff/confirm1",
-        icon: <Icon.BsPersonCircle className="sidenav-link-icon me-2" />,
+        icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
       },
     ],
   },

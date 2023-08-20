@@ -17,11 +17,12 @@ const Menu: FC<props> = ({ index, menu, collapsed }): ReactElement => {
   };
 
   return (
-    <>
+    <div className="w-100" onMouseEnter={toggleChildCollapse}
+          onMouseLeave={toggleChildCollapse}>
       <li
         key={index}
         className="sidenav-nav-item"
-        onClick={toggleChildCollapse}
+        // onClick={toggleChildCollapse}
       >
         <NavLink className="sidenav-nav-link" to={menu.link}>
           {menu.icon}
@@ -29,13 +30,13 @@ const Menu: FC<props> = ({ index, menu, collapsed }): ReactElement => {
             <>
               <span className="sidenav-link-text fs-16">{menu.label}</span>
               {menu.childs && (
-                <button className="btn-chevron">
+                <span className="btn-chevron">
                   {childCollapsed ? (
                     <Icon.BsChevronUp />
                   ) : (
                     <Icon.BsChevronDown />
                   )}
-                </button>
+                </span>
               )}
             </>
           )}
@@ -60,7 +61,7 @@ const Menu: FC<props> = ({ index, menu, collapsed }): ReactElement => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 

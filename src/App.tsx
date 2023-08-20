@@ -2,15 +2,21 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import * as Icon from "react-icons/bs";
 import * as IconMD from "react-icons/md";
-import { NavLink, Route, Routes, useNavigate } from "react-router-dom";
+import {
+  NavLink,
+  Route,
+  Routes,
+  useNavigate,
+  Navigate,
+} from "react-router-dom";
 import "./App.scss";
-// import Auth from "./components/auth/Auth";
 // import Home from "./components/home/Home";
 // import Profile from "./components/profile/Profile";
 import Logo from "./assets/images/Logo.png";
 import Admin from "./components/admin/Admin";
 import Auth from "./components/auth/Auth";
 import * as StorageService from "./services/storage.service";
+import PrivateRoute from "./guards/privateRoute";
 
 type NavProps = PropsWithChildren<{
   url: string;
@@ -31,14 +37,18 @@ const App: FC = (): React.ReactElement => {
   const [isNavCollapsed, setIsNavCollapsed] = useState<boolean>(true);
   const [currentUser, setCurrentUser] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-  const [authStatus, setAuthStatus] = useState<boolean>(false);
+  const [authStatus, setAuthStatus] = useState<boolean>(true);
   const navigate = useNavigate();
 
   const handleNavCollapse = (): void =>
     setIsNavCollapsed((isNavCollapsed) => !isNavCollapsed);
 
   useEffect(() => {
-    setCurrentUser(StorageService.getItem("username"));
+    const currentUser: string | null = StorageService.getItem("username");
+    if (currentUser) {
+      setCurrentUser(currentUser);
+      setAuthStatus(false);
+    }
     setRole(StorageService.getItem("role"));
     setLightMode();
   }, []);
@@ -90,7 +100,7 @@ const App: FC = (): React.ReactElement => {
             <Nav url={"/shop"}>Shop</Nav>
             <Nav url={"/promotion"}>Promotion</Nav>
             <Nav url={"/contact"}>Contact</Nav>
-            {currentUser && role === "Administrateur" && (
+            {currentUser && role !== "Utilisateur" && (
               <Nav url={"/admin"}>Administration</Nav>
             )}
           </ul>
@@ -144,7 +154,10 @@ const App: FC = (): React.ReactElement => {
           <Route path="/home" element={<Home />} />
           <Route path="/shop" element={<Home />} />
           <Route path="/profile" element={<Profile />} /> */}
-          <Route path="/admin/*" element={<Admin />} />
+          <Route element={<PrivateRoute />}>
+            <Route path="/admin/*" element={<Admin />} />
+          </Route>
+          <Route path="/" element={<Navigate to={"/home"} />} />
         </Routes>
       </div>
     </div>

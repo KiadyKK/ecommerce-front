@@ -1,0 +1,65 @@
+//div
+.arrow-wrapper {
+  height: 20px;
+  background-color: var(--background);
+  border-radius: 4px;
+  margin-bottom: 10px;
+
+  .step {
+    color: whitesmoke !important;
+    text-align: center;
+    margin-right: 5px;
+    padding: 0px 20px 0px 30px;
+    min-width: 80px;
+    float: left;
+    position: relative;
+    background-color: var(--gris-1);
+
+    &:before,
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 0;
+      width: 0;
+      height: 0;
+      border-top: 10px solid transparent;
+      border-bottom: 11px solid transparent;
+    }
+
+    &:before {
+      right: auto;
+      left: 0;
+      border-left: 15px solid var(--background);
+      z-index: 0;
+    }
+
+    &:after {
+      right: -15px;
+      border-left: 15px solid var(--gris-1);
+      z-index: 2;
+    }
+
+    &:first-child {
+      border-top-left-radius: 4px;
+      border-bottom-left-radius: 4px;
+
+      &:before {
+        border: none;
+      }
+    }
+
+    &.current {
+      color: var(--white);
+      font-weight: bold;
+      background-color: var(--blue);
+
+      &:after {
+        border-left: 15px solid var(--blue);
+      }
+    }
+
+    a {
+      color: var(--white);
+    }
+  }
+}

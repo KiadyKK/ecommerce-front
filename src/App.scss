@@ -1,12 +1,13 @@
-.nav-link, .log {
+.nav-link,
+.log {
   font-family: cursive, Arial, Helvetica, sans-serif;
   color: var(--text-color);
 }
 
 .nav-link.active {
   font-weight: bold;
-  border-bottom: 5px solid rgb(233, 233, 0);
-  background-color: rgba(255, 238, 0, 0.2);
+  border-bottom: 5px solid var(--yellow);
+  background-color: var(--yellow-opac);
   color: var(--text-color) !important;
 }
 
@@ -23,7 +24,7 @@
 .button-menu-toggle {
   margin: 5px 0px;
   padding-right: 9px;
-  color: rgb(26, 26, 214);
+  color: var(--blue);
   background: none;
   border: none;
 }

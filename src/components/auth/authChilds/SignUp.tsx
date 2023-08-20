@@ -2,13 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import * as AuthService from "../../../services/personne.service";
+import * as PersonneService from "../../../services/personne.service";
 
 type props = {
   onHide: () => void;
 };
 
-interface person {
+interface personne {
   username: string;
   email: string;
   mdp: string;
@@ -35,7 +35,6 @@ const validationSchema = Yup.object().shape({
 });
 
 const SignUp: FC<props> = ({ onHide }) => {
-  const [isCustomer, setIsCustomer] = useState<boolean>(true);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
   const [successful, setSuccessful] = useState(false);
@@ -46,7 +45,7 @@ const SignUp: FC<props> = ({ onHide }) => {
     setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<person>({
+  } = useForm<personne>({
     resolver: yupResolver(validationSchema),
   });
 
@@ -56,12 +55,12 @@ const SignUp: FC<props> = ({ onHide }) => {
     setValue("role", e.target.value, { shouldValidate: true });
   };
 
-  const onSubmit = (data: person) => {
+  const onSubmit = (data: personne) => {
     setMessage("");
     setSuccessful(false);
     setLoading(true);
 
-    AuthService.signup(data).then(
+    PersonneService.signup(data).then(
       (response) => {
         setMessage(response.data);
         setSuccessful(true);
@@ -150,7 +149,7 @@ const SignUp: FC<props> = ({ onHide }) => {
                 <option value="Comptable">Comptable</option>
                 <option value="Commercial">Commercial</option>
                 <option value="Magasinier">Magasinier</option>
-                <option value="Magasinier">Utilisateur</option>
+                <option value="Utilisateur">Utilisateur</option>
               </select>
               <div className="text-start text-danger py-1">
                 {errors.role?.message}

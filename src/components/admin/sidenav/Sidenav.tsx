@@ -1,7 +1,7 @@
 import { FC, ReactElement, useState } from "react";
 import { navbarData, InavbarData } from "./sidenav-data";
 import Menu from "./Menu";
-import * as Icon from "react-icons/bs";
+import * as IconAi from "react-icons/ai";
 import "./Sidenav.scss";
 
 type props = {
@@ -26,7 +26,7 @@ const Sidenav: FC<props> = (props): ReactElement => {
     >
       <div className="logo-container">
         <button className="logo" onClick={toggleCollapse}>
-          <Icon.BsPersonCircle />
+          <IconAi.AiOutlineMenu />
         </button>
         {collapsed && <div className="logo-text">Menu</div>}
       </div>
