@@ -9,6 +9,7 @@
 
   --white: whitesmoke;
 
+  --gris: gray;
   --gris-1: rgb(78, 85, 110);
 
   --yellow: rgb(233, 233, 0);
@@ -30,7 +31,7 @@
 }
 
 [data-theme="light"] {
-  --background: whitesmoke;
+  --background: white;
   --background-1: rgb(54, 179, 23);
   --background-body: rgb(230, 230, 230);
   --text-color: #212529;

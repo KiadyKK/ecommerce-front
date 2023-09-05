@@ -17,6 +17,8 @@ import Admin from "./components/admin/Admin";
 import Auth from "./components/auth/Auth";
 import * as StorageService from "./services/storage.service";
 import PrivateRoute from "./guards/privateRoute";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 
 type NavProps = PropsWithChildren<{
   url: string;
@@ -50,7 +52,14 @@ const App: FC = (): React.ReactElement => {
       setAuthStatus(false);
     }
     setRole(StorageService.getItem("role"));
-    setLightMode();
+
+    if (localStorage.getItem("theme") == "dark") {
+      setDarkMode();
+      setTheme(true);
+    } else {
+      setLightMode();
+      setTheme(false);
+    }
   }, []);
 
   const logOut = (): void => {
@@ -70,6 +79,7 @@ const App: FC = (): React.ReactElement => {
   const toggleTheme = (): void => {
     theme ? setLightMode() : setDarkMode();
     setTheme((theme) => !theme);
+    localStorage.setItem("theme", theme ? "light" : "dark");
   };
 
   return (
@@ -149,16 +159,18 @@ const App: FC = (): React.ReactElement => {
       <Auth show={authStatus} onHide={() => setAuthStatus(false)} />
 
       <div className="body">
-        <Routes>
-          {/* <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/shop" element={<Home />} />
-          <Route path="/profile" element={<Profile />} /> */}
-          <Route element={<PrivateRoute />}>
-            <Route path="/admin/*" element={<Admin />} />
-          </Route>
-          <Route path="/" element={<Navigate to={"/home"} />} />
-        </Routes>
+        <SkeletonTheme baseColor="rgb(78, 85, 110)" highlightColor="#0d6efd">
+          <Routes>
+            {/* <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/shop" element={<Home />} />
+            <Route path="/profile" element={<Profile />} /> */}
+            <Route element={<PrivateRoute />}>
+              <Route path="/admin/*" element={<Admin />} />
+            </Route>
+            <Route path="/" element={<Navigate to={"/home"} />} />
+          </Routes>{" "}
+        </SkeletonTheme>
       </div>
     </div>
   );

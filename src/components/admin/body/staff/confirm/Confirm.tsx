@@ -1,27 +1,70 @@
 import { FC, ReactElement, useEffect, useState } from "react";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 import * as IconBs from "react-icons/bs";
-import { useSelector, useDispatch } from "react-redux";
-import { retrivePersonnes } from "../../../../../slices/personneSlice";
-import "./Confirm.scss";
-import Ipersonne1 from "../../../../../types/personne/personne1";
-import { AppDispatch } from "../../../../../store";
+import Skeleton from "react-loading-skeleton";
+import { useDispatch, useSelector } from "react-redux";
 import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
-import Istate from "../../../../../types/state/state";
+import TableSkel from "../../../../../shared/skeletor/TableSkel";
+import {
+  personnesLoading,
+  personneUpdateLoading,
+  personneDeleteLoading,
+  personnesPending,
+  retrivePersonnes,
+  updatePending,
+  personneError,
+  deletePersonne,
+} from "../../../../../slices/personneSlice";
+import {
+  retriveRoles,
+  roles,
+  rolesLoading,
+} from "../../../../../slices/roleSlice";
+import { AppDispatch } from "../../../../../store";
+import Ipersonne1 from "../../../../../types/personne/personne1";
+import Irole from "../../../../../types/role/role";
+import "./Confirm.scss";
 
 const Confirm: FC = (): ReactElement => {
   const [searchUsername, setSearchUsername] = useState<string>("");
-  const personnes: Ipersonne1[] = useSelector(
-    (state: Istate) => state.personnes.personnes
-  );
+  const [searchRole, setSearchRole] = useState<string>("");
+
+  const listRole: Irole[] = useSelector(roles);
+  const listRoleLoading: boolean = useSelector(rolesLoading);
+
+  const listPersonne: Ipersonne1[] = useSelector(personnesPending);
+  const listPersonneLoading: boolean = useSelector(personnesLoading);
+  const persUpdateLoading: boolean = useSelector(personneUpdateLoading);
+  const persDeleteLoading: boolean = useSelector(personneDeleteLoading);
+  const persError: string = useSelector(personneError);
+
+  const [page, setPage] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(4);
+
+  const [persIndex, setPersIndex] = useState<number | null>(null);
+
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(retrivePersonnes(""));
+    dispatch(retriveRoles());
+    dispatch(retrivePersonnes({ searchUsername, searchRole }));
   }, [dispatch]);
 
   const onChangeSearchUsername = (e: any) => {
     setSearchUsername(e.target.value);
   };
+
+  const onChangeSearchRole = (e: any): void => {
+    const searchRole: string = e.target.value === "Tous" ? "" : e.target.value;
+    setSearchRole(searchRole);
+    const data = {
+      searchUsername: searchUsername,
+      searchRole: searchRole,
+    };
+    dispatch(retrivePersonnes(data));
+  };
+
+  if (persError !== "") alert(persError);
 
   return (
     <div className="bg px-2">
@@ -33,19 +76,33 @@ const Confirm: FC = (): ReactElement => {
       <RouteProgress />
 
       <div className="content">
-        <div className="d-flex ms-auto mb-2">
-          <select
-            className="form-select form-select-sm ms-auto"
-            aria-label=".form-select-sm example"
-            defaultValue=""
-          >
-            <option value="" disabled hidden>
-              Role
-            </option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
-          </select>
+        <div className="d-flex justify-content-end mb-2">
+          {!listRoleLoading ? (
+            <select
+              className="form-select form-select-sm ms-auto"
+              aria-label=".form-select-sm example"
+              onChange={onChangeSearchRole}
+              defaultValue=""
+              required
+            >
+              <option value="" disabled hidden>
+                Role
+              </option>
+              {listRole?.map((role: Irole, index: number) => {
+                return (
+                  role.role !== "Administrateur" && (
+                    <option key={index} value={role.role}>
+                      {role.role}
+                    </option>
+                  )
+                );
+              })}
+              <option className="separator" disabled></option>
+              <option value="Tous">Tous</option>
+            </select>
+          ) : (
+            <Skeleton className="select-skel" />
+          )}
 
           <div className="input-group input-group-sm ms-2">
             <input
@@ -54,39 +111,123 @@ const Confirm: FC = (): ReactElement => {
               placeholder="Username"
               value={searchUsername}
               onChange={onChangeSearchUsername}
+              onKeyDown={(e: any) => {
+                if (e.key === "Enter")
+                  dispatch(retrivePersonnes({ searchUsername, searchRole }));
+              }}
             />
             <button
               className="input-group-text btn btn-primary h-100"
               type="button"
-              onClick={() => dispatch(retrivePersonnes(searchUsername))}
+              onClick={() =>
+                dispatch(retrivePersonnes({ searchUsername, searchRole }))
+              }
             >
               <IconBs.BsSearch className="w-100 h-100" />
             </button>
           </div>
         </div>
 
-        <table className="table table-bordered table-striped table-sm">
-          <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Nom</th>
-              <th scope="col">Email</th>
-              <th scope="col">Role</th>
-            </tr>
-          </thead>
-          <tbody>
-            {personnes?.map((personne: Ipersonne1, index: number) => {
-              return (
-                <tr key={index}>
-                  <th scope="row">{personne.id}</th>
-                  <td>{personne.username}</td>
-                  <td>{personne.email}</td>
-                  <td>{personne.role?.role}</td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {!listPersonneLoading ? (
+          !listPersonne.length ? (
+            <p className="result fw-bold text-center pt-1">No results</p>
+          ) : (
+            <>
+              <table className="table table-bordered table-striped table-sm">
+                <thead>
+                  <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col" className="text-center">
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {listPersonne
+                    .slice(
+                      (page - 1) * pageSize, //0   1
+                      (page - 1) * pageSize + pageSize //1   2
+                    )
+                    .map((personne: Ipersonne1, index: number) => {
+                      return (
+                        <tr key={index}>
+                          <th scope="row" style={{ verticalAlign: "middle" }}>
+                            {personne.id}
+                          </th>
+                          <td>{personne.username}</td>
+                          <td>{personne.email}</td>
+                          <td>{personne.role?.role}</td>
+                          <td>
+                            <div className="text-center">
+                              <button
+                                className="btn btn-success btn-sm rounded-pill me-2"
+                                onClick={() => {
+                                  dispatch(updatePending(personne.id!));
+                                  setPersIndex(index);
+                                }}
+                              >
+                                {persUpdateLoading && persIndex === index && (
+                                  <span className="spinner-border spinner-border-sm me-1"></span>
+                                )}
+                                <IconBs.BsFillPersonCheckFill />
+                              </button>
+                              <button
+                                className="btn btn-danger btn-sm rounded-pill"
+                                onClick={() => {
+                                  dispatch(deletePersonne(personne.id!));
+                                  setPersIndex(index);
+                                }}
+                              >
+                                {persDeleteLoading && persIndex === index && (
+                                  <span className="spinner-border spinner-border-sm me-1"></span>
+                                )}
+                                <IconBs.BsFillTrash3Fill />
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+
+              <div className="d-flex">
+                <PaginationControl
+                  last
+                  page={page}
+                  // between={2}
+                  total={listPersonne.length}
+                  limit={pageSize}
+                  changePage={(page) => {
+                    setPage(page);
+                  }}
+                  // ellipsis={1}
+                />
+
+                <select
+                  style={{ maxWidth: "70px" }}
+                  className="form-select form-select-sm ms-auto"
+                  aria-label=".form-select-sm example"
+                  onChange={(e: any) => {
+                    setPageSize(+e.target.value);
+                    setPage(1);
+                  }}
+                  defaultValue="4"
+                >
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                </select>
+              </div>
+            </>
+          )
+        ) : (
+          <TableSkel col={5} row={5} />
+        )}
       </div>
     </div>
   );

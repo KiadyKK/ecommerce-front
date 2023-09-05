@@ -1,5 +1,4 @@
 import { FC, ReactElement } from "react";
-import * as IconBs from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 import "./RouteProgress.scss";
 

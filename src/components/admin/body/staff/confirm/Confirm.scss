@@ -13,15 +13,34 @@
 
     //div
     .d-flex {
+      max-height: 31px;
+
       select {
         max-width: 180px;
         background-color: var(--background);
         border-color: var(--table-border);
         color: var(--text-color);
 
-        &:disabled {
-          color: var(--table-border) !important;
+        &:invalid {
+          color: var(--gris);
         }
+
+        option {
+          color: var(--text-color);
+        }
+
+        .separator {
+          font-size: 0.3px;
+          background-color: var(--gris);
+        }
+      }
+
+      //Skeleton select
+      .select-skel {
+        width: 180px;
+        height: 100%;
+        display: flex;
+        align-items: start;
       }
 
       //div
@@ -38,17 +57,64 @@
           }
 
           &::placeholder {
-            color: var(--table-border);
+            color: var(--gris);
           }
         }
       }
+    }
+
+    .result {
+      height: 31px;
+      border-radius: 4px;
+      border: 1px solid var(--table-border);
     }
 
     .table {
       border: 1px solid var(--table-border);
 
       tbody tr td {
+        vertical-align: middle;
         color: var(--text-color) !important;
+      }
+    }
+
+    .pagination li {
+      .page-link {
+        height: 31px;
+        font-size: small;
+        border-radius: 0%;
+        border: 1px solid var(--table-border);
+        background-color: var(--background);
+      }
+
+      // &:first-child .page-link {
+      //   border-top-left-radius: 4px;
+      //   border-bottom-left-radius: 4px;
+      // }
+
+      // &:last-child .page-link {
+      //   border-top-right-radius: 4px;
+      //   border-bottom-right-radius: 4px;
+      // }
+
+      &.active .page-link {
+        background-color: #0d6efd;
+        color: var(--white);
+        font-weight: bold;
+        border: 1px solid #0d6efd;
+        box-shadow: none;
+      }
+    }
+
+    .d-flex {
+      .form-select {
+        background-color: var(--background);
+        border-color: var(--table-border);
+        color: var(--text-color);
+
+        option {
+          color: var(--text-color);
+        }
       }
     }
   }
