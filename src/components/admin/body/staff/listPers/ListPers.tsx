@@ -1,20 +1,20 @@
 import { FC, ReactElement, useEffect, useState } from "react";
 import { PaginationControl } from "react-bootstrap-pagination-control";
 import * as IconBs from "react-icons/bs";
+import * as IconFa from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
+import CustomModal from "../../../../../shared/components/alert/Modal";
 import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
 import TableSkel from "../../../../../shared/skeletor/TableSkel";
-import CustomModal from "../../../../../shared/components/alert/Modal";
 import {
-  personnesLoading,
-  personneUpdateLoading,
-  personneDeleteLoading,
-  personnesPending,
-  retrivePersonnes,
-  updatePending,
-  personneError,
   deletePersonne,
+  personneDeleteLoading,
+  personneError,
+  personneUpdateLoading,
+  personnesList,
+  personnesLoading,
+  retrivePersonnes,
 } from "../../../../../slices/personneSlice";
 import {
   retriveRoles,
@@ -24,16 +24,16 @@ import {
 import { AppDispatch } from "../../../../../store";
 import Ipersonne1 from "../../../../../types/personne/personne1";
 import Irole from "../../../../../types/role/role";
-import "./Confirm.scss";
+import "./ListPers.scss";
 
-const Confirm: FC = (): ReactElement => {
+const ListPers: FC = (): ReactElement => {
   const [searchUsername, setSearchUsername] = useState<string>("");
   const [searchRole, setSearchRole] = useState<string>("");
 
   const listRole: Irole[] = useSelector(roles);
   const listRoleLoading: boolean = useSelector(rolesLoading);
 
-  const listPersonne: Ipersonne1[] = useSelector(personnesPending);
+  const listPersonnes: Ipersonne1[] = useSelector(personnesList);
   const listPersonneLoading: boolean = useSelector(personnesLoading);
   const persUpdateLoading: boolean = useSelector(personneUpdateLoading);
   const persDeleteLoading: boolean = useSelector(personneDeleteLoading);
@@ -84,8 +84,8 @@ const Confirm: FC = (): ReactElement => {
   return (
     <div className="bg px-2">
       <h4 className="pt-2">
-        <IconBs.BsFillPersonCheckFill className="me-2" />
-        Confirm person
+        <IconFa.FaListUl className="me-2" />
+        List persons
       </h4>
 
       <RouteProgress />
@@ -144,7 +144,7 @@ const Confirm: FC = (): ReactElement => {
         </div>
 
         {!listPersonneLoading ? (
-          !listPersonne.length ? (
+          !listPersonnes.length ? (
             <p className="result fw-bold text-center pt-1">No results</p>
           ) : (
             <>
@@ -161,7 +161,7 @@ const Confirm: FC = (): ReactElement => {
                   </tr>
                 </thead>
                 <tbody>
-                  {listPersonne
+                  {listPersonnes
                     .slice(
                       (page - 1) * pageSize, //0   1
                       (page - 1) * pageSize + pageSize //1   2
@@ -177,18 +177,6 @@ const Confirm: FC = (): ReactElement => {
                           <td>{personne.role?.role}</td>
                           <td>
                             <div className="text-center">
-                              <button
-                                className="btn btn-success btn-sm rounded-pill me-2"
-                                onClick={() => {
-                                  dispatch(updatePending(personne.id!));
-                                  setPersIndex(index);
-                                }}
-                              >
-                                {persUpdateLoading && persIndex === index && (
-                                  <span className="spinner-border spinner-border-sm me-1"></span>
-                                )}
-                                <IconBs.BsFillPersonCheckFill />
-                              </button>
                               <button
                                 className="btn btn-danger btn-sm rounded-pill"
                                 onClick={() => deletePers(personne.id!, index)}
@@ -211,7 +199,7 @@ const Confirm: FC = (): ReactElement => {
                   last
                   page={page}
                   // between={2}
-                  total={listPersonne.length}
+                  total={listPersonnes.length}
                   limit={pageSize}
                   changePage={(page) => {
                     setPage(page);
@@ -255,4 +243,4 @@ const Confirm: FC = (): ReactElement => {
   );
 };
 
-export default Confirm;
+export default ListPers;

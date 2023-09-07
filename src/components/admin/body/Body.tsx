@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import "./Body.scss";
 import Staff from "./staff/Staff";
 import Confirm from "./staff/confirm/Confirm";
+import ListPers from "./staff/listPers/ListPers";
 
 type props = {
   collapsed: boolean;
@@ -25,6 +26,7 @@ const Body: FC<props> = ({ collapsed, screenWidth }): ReactElement => {
       <Routes>
         <Route path="/staff" element={<Staff />} />
         <Route path="/staff/confirm" element={<Confirm />} />
+        <Route path="/staff/list" element={<ListPers />} />
       </Routes>
     </div>
   );

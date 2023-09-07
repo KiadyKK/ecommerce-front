@@ -1,0 +1,9 @@
+.custom-modal .modal-dialog .modal-content {
+  background-color: var(--background);
+  color: var(--text-color);
+
+  .modal-body {
+    color: var(--text-color) !important;
+    text-align: start !important;
+  }
+}

@@ -14,9 +14,9 @@ const TableSkel: FC<props> = ({ col, row }): ReactElement => {
         {[...Array(col)].map((e: number, i: number) => {
           return (
             <tr key={i}>
-              {[...Array(col)].map((e: number, i: number) => {
+              {[...Array(row)].map((e: number, j: number) => {
                 return (
-                  <td key={i}>
+                  <td key={j}>
                     <Skeleton height={31} width={"100%"} />
                   </td>
                 );

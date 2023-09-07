@@ -123,6 +123,12 @@ export const personnesPending = createSelector(
     personne.filter((personne: Ipersonne1) => personne.pending)
 );
 
+export const personnesList = createSelector(
+  [selectPersonnes],
+  (personne: Ipersonne1[]) =>
+    personne.filter((personne: Ipersonne1) => !personne.pending)
+);
+
 export const personnesLoading = (state: Istate) => state.personnes.loading;
 
 export const personneUpdateLoading = (state: Istate) =>
