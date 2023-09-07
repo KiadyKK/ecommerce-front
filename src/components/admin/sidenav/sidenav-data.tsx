@@ -2,6 +2,9 @@ import { ReactElement } from "react";
 import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import * as IconTi from "react-icons/ti";
+import * as IconFi from "react-icons/fi";
+import * as IconTb from "react-icons/tb";
+import * as IconAi from "react-icons/ai";
 
 export interface InavbarDataChild {
   label: string;
@@ -25,7 +28,9 @@ export const navbarData: InavbarData[] = [
       {
         label: "Confirm",
         link: "staff/confirm",
-        icon: <IconBs.BsFillPersonCheckFill className="sidenav-link-icon me-2" />,
+        icon: (
+          <IconBs.BsFillPersonCheckFill className="sidenav-link-icon me-2" />
+        ),
       },
       {
         label: "List",
@@ -35,9 +40,21 @@ export const navbarData: InavbarData[] = [
     ],
   },
   {
-    link: "customers",
-    icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
-    label: "Customers",
+    link: "configuration",
+    icon: <IconAi.AiTwotoneSetting className="sidenav-link-icon me-2" />,
+    label: "Configuration",
+    childs: [
+      {
+        label: "Package",
+        link: "configuration/package",
+        icon: <IconFi.FiPackage className="sidenav-link-icon me-2" />,
+      },
+      {
+        label: "Article",
+        link: "configuration/article",
+        icon: <IconTb.TbReportMoney className="sidenav-link-icon me-2" />,
+      },
+    ],
   },
   {
     link: "staff1",
