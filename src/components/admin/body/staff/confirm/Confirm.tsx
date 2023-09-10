@@ -5,7 +5,7 @@ import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
 import TableSkel from "../../../../../shared/skeletor/TableSkel";
-import CustomModal from "../../../../../shared/components/alert/Modal";
+import CustomModal from "../../../../../shared/components/alert/ModalConfirm";
 import {
   personnesLoading,
   personneUpdateLoading,

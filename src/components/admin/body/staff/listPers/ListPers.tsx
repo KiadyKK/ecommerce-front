@@ -4,7 +4,7 @@ import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import CustomModal from "../../../../../shared/components/alert/Modal";
+import CustomModal from "../../../../../shared/components/alert/ModalConfirm";
 import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
 import TableSkel from "../../../../../shared/skeletor/TableSkel";
 import {
@@ -35,7 +35,6 @@ const ListPers: FC = (): ReactElement => {
 
   const listPersonnes: Ipersonne1[] = useSelector(personnesList);
   const listPersonneLoading: boolean = useSelector(personnesLoading);
-  const persUpdateLoading: boolean = useSelector(personneUpdateLoading);
   const persDeleteLoading: boolean = useSelector(personneDeleteLoading);
   const persError: string = useSelector(personneError);
 
@@ -163,8 +162,8 @@ const ListPers: FC = (): ReactElement => {
                 <tbody>
                   {listPersonnes
                     .slice(
-                      (page - 1) * pageSize, //0   1
-                      (page - 1) * pageSize + pageSize //1   2
+                      (page - 1) * pageSize,
+                      (page - 1) * pageSize + pageSize
                     )
                     .map((personne: Ipersonne1, index: number) => {
                       return (

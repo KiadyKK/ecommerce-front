@@ -1,0 +1,24 @@
+div {
+  .sub-title {
+    border-bottom: 1px solid var(--table-border);
+    padding-bottom: 8px;
+  }
+
+  .d-flex .input-group {
+    max-width: 180px;
+
+    input {
+      background-color: var(--background);
+      border-color: var(--table-border);
+      color: var(--text-color);
+
+      &:focus {
+        border-color: var(--blue);
+      }
+
+      &::placeholder {
+        color: var(--gris);
+      }
+    }
+  }
+}

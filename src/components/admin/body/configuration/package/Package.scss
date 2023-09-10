@@ -1,0 +1,13 @@
+.bg {
+  background-color: var(--background-body);
+  color: var(--text-color);
+  min-width: 100%;
+  min-height: 100%;
+
+  .row .col-md-4 .content {
+    border-radius: 4px;
+    background-color: var(--background);
+    min-height: 300px;
+    padding: 0.5rem;
+  }
+}

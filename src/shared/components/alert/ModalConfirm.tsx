@@ -1,5 +1,5 @@
 import { FC, PropsWithChildren, ReactElement } from "react";
-import "./Modal.scss";
+import "./ModalConfirm.scss";
 import Modal from "react-bootstrap/Modal";
 import * as IconBs from "react-icons/bs";
 import * as IconSl from "react-icons/sl";
@@ -10,7 +10,7 @@ type props = PropsWithChildren<{
   onAccept: () => void
 }>;
 
-const CustomModal: FC<props> = (props): ReactElement => {
+const ModalConfirm: FC<props> = (props): ReactElement => {
   return (
     <Modal
       className="custom-modal"
@@ -38,4 +38,4 @@ const CustomModal: FC<props> = (props): ReactElement => {
   );
 };
 
-export default CustomModal;
+export default ModalConfirm;

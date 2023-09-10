@@ -1,0 +1,33 @@
+.custom-modal div div {
+  background-color: var(--background-body);
+
+  .modal-header {
+    border-bottom: 1px solid var(--table-border);
+  }
+
+  .modal-footer {
+    border-top: 1px solid var(--table-border);
+  }
+}
+
+.input-group {
+  span {
+    background-color: var(--background-body);
+    color: var(--text-color);
+    border-color: var(--table-border);
+  }
+
+  input {
+    background-color: var(--background) !important;
+    border-color: var(--table-border);
+    color: var(--text-color) !important;
+
+    &:focus {
+      border-color: var(--blue);
+    }
+
+    &::placeholder {
+      color: var(--gris);
+    }
+  }
+}
