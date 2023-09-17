@@ -1,4 +1,5 @@
 import http from "../helpers/interceptors/axiosInterceptor";
+import category from "../types/category/category";
 
 const URL = "/categorie";
 
@@ -12,4 +13,8 @@ export const getAll = (catArt: any) => {
 
 export const deleteCat = (id: number) => {
   return http.delete(URL + `/${id}`);
+};
+
+export const updateCat = (data: category) => {
+  return http.put(URL, data);
 };

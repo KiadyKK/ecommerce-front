@@ -3,78 +3,76 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import * as IconFi from "react-icons/fi";
-import * as IconMd from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ModalConfirm from "../../../../../../../shared/components/alert/ModalConfirm";
-import { CATEGORY } from "../../../../../../../shared/constant/constant";
+import { CONDITIONNEMENT } from "../../../../../../../shared/constant/constant";
 import TableSkel from "../../../../../../../shared/skeletor/TableSkel";
 import {
-  categoryLoadingDelete,
-  categoryLoadingRetrieve,
-  deleteCategory,
-  retrieveCategory,
-  selectCategories,
-} from "../../../../../../../slices/categorySlice";
+  conditionnementLoadingDelete,
+  conditionnementLoadingRetrieve,
+  deleteConditionnement,
+  retrieveConditionnement,
+  selectConditionnements,
+} from "../../../../../../../slices/conditionnementSlice";
 import { AppDispatch } from "../../../../../../../store";
-import category from "../../../../../../../types/category/category";
+import conditionnement from "../../../../../../../types/conditionnement/conditionnement";
 import ModalNewPackage from "../modalNewPackage/ModalNewPackage";
 import ModalUpdatePackage from "../modalUpdatePackage/ModalUpdatePackage";
-import "./Category.scss";
+import "./Conditionnement.scss";
 
-const Category: FC = (): ReactElement => {
-  const [searchCategory, setSearchCategory] = useState<string>("");
+const Conditionnement: FC = (): ReactElement => {
+  const [searchConditionnement, setSearchConditionnement] =
+    useState<string>("");
 
-  const loadingRetrieve = useSelector(categoryLoadingRetrieve);
-  const loadingDelete = useSelector(categoryLoadingDelete);
-  const listCategories = useSelector(selectCategories);
+  const loadingRetrieve = useSelector(conditionnementLoadingRetrieve);
+  const loadingDelete = useSelector(conditionnementLoadingDelete);
+  const listConditionnements = useSelector(selectConditionnements);
 
-  const [catIndex, setCatIndex] = useState<number | null>(null);
-  const [idCatToDelete, setIdCatToDelete] = useState<number | null>(null);
+  const [condIndex, setCondIndex] = useState<number | null>(null);
+  const [idCondToDelete, setIdCondToDelete] = useState<number | null>(null);
 
-  const [categoryToUpdate, setCategoryToUpdate] = useState<category | null>(
-    null
-  );
+  const [conditionnementToUpdate, setConditionnementToUpdate] =
+    useState<conditionnement | null>(null);
 
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
 
-  const [showNewCat, setShowNewCat] = useState<boolean>(false);
-  const [showUpdateCat, setShowUpdateCat] = useState<boolean>(false);
-  const [showModalConfirmDelete, setShowModalConfirmDelete] =
-    useState<boolean>(false);
+  const [showNewCond, setShowNewCond] = useState<boolean>(false);
+  const [showUpdateCond, setShowUpdateCond] = useState<boolean>(false);
+  const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(retrieveCategory(searchCategory));
+    dispatch(retrieveConditionnement(searchConditionnement));
   }, [dispatch]);
 
-  const onChangeSearchCategory = (e: any) => {
-    setSearchCategory(e.target.value);
+  const onChangeSearchConditionnement = (e: any) => {
+    setSearchConditionnement(e.target.value);
   };
 
-  const deleteCat = (id: number, index: number): void => {
-    setShowModalConfirmDelete(true);
-    setIdCatToDelete(id);
-    setCatIndex(index);
+  const deleteCond = (id: number, index: number): void => {
+    setShowModalConfirm(true);
+    setIdCondToDelete(id);
+    setCondIndex(index);
   };
 
   const onDeleteModalAccept = (): void => {
-    setShowModalConfirmDelete(false);
-    dispatch(deleteCategory(idCatToDelete!));
+    setShowModalConfirm(false);
+    dispatch(deleteConditionnement(idCondToDelete!));
   };
 
   return (
     <div>
       <h5 className="sub-title">
-        <IconMd.MdCategory className="me-2" />
-        Category
+        <IconBs.BsFillBoxSeamFill className="me-2" />
+        Conditioning
       </h5>
 
       <div className="d-flex mb-2">
         <button
           className="btn btn-success btn-sm d-flex align-items-middle fs-18 py-0"
-          onClick={() => setShowNewCat(true)}
+          onClick={() => setShowNewCond(true)}
         >
           <IconFi.FiPlus className="w-100 h-100" />
         </button>
@@ -84,16 +82,19 @@ const Category: FC = (): ReactElement => {
             type="text"
             className="form-control"
             placeholder="Category"
-            value={searchCategory}
-            onChange={onChangeSearchCategory}
+            value={searchConditionnement}
+            onChange={onChangeSearchConditionnement}
             onKeyDown={(e: any) => {
-              if (e.key === "Enter") dispatch(retrieveCategory(searchCategory));
+              if (e.key === "Enter")
+                dispatch(retrieveConditionnement(searchConditionnement));
             }}
           />
           <button
             className="input-group-text btn btn-primary"
             type="button"
-            onClick={() => dispatch(retrieveCategory(searchCategory))}
+            onClick={() =>
+              dispatch(retrieveConditionnement(searchConditionnement))
+            }
           >
             <IconBs.BsSearch className="w-100 h-100" />
           </button>
@@ -101,7 +102,7 @@ const Category: FC = (): ReactElement => {
       </div>
 
       {!loadingRetrieve ? (
-        !listCategories.length ? (
+        !listConditionnements.length ? (
           <p className="result fw-bold text-center pt-1">No results</p>
         ) : (
           <>
@@ -109,40 +110,42 @@ const Category: FC = (): ReactElement => {
               <thead>
                 <tr>
                   <th scope="col">id</th>
-                  <th scope="col">Category</th>
+                  <th scope="col">Conditionnement</th>
                   <th scope="col" className="text-center">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {listCategories
+                {listConditionnements
                   .slice(
                     (page - 1) * pageSize,
                     (page - 1) * pageSize + pageSize
                   )
-                  .map((category: category, index: number) => {
+                  .map((conditionnement: conditionnement, index: number) => {
                     return (
                       <tr key={index}>
                         <th scope="row" style={{ verticalAlign: "middle" }}>
-                          {category.id}
+                          {conditionnement.id}
                         </th>
-                        <td>{category.catArt}</td>
+                        <td>{conditionnement.condArt}</td>
                         <td className="text-center">
                           <button
                             className="btn btn-dark-b btn-sm box-sdw rounded-pill me-2"
                             onClick={() => {
-                              setShowUpdateCat(true);
-                              setCategoryToUpdate(category);
+                              setShowUpdateCond(true);
+                              setConditionnementToUpdate(conditionnement);
                             }}
                           >
                             <IconFa.FaEdit />
                           </button>
                           <button
                             className="btn btn-danger btn-sm box-sdw rounded-pill"
-                            onClick={() => deleteCat(category.id, index)}
+                            onClick={() =>
+                              deleteCond(conditionnement.id, index)
+                            }
                           >
-                            {loadingDelete && catIndex === index && (
+                            {loadingDelete && condIndex === index && (
                               <span className="spinner-border spinner-border-sm me-1"></span>
                             )}
                             <IconBs.BsFillTrash3Fill />
@@ -159,7 +162,7 @@ const Category: FC = (): ReactElement => {
                 last
                 page={page}
                 // between={2}
-                total={listCategories.length}
+                total={listConditionnements.length}
                 limit={pageSize}
                 changePage={(page) => {
                   setPage(page);
@@ -175,7 +178,7 @@ const Category: FC = (): ReactElement => {
                   setPageSize(+e.target.value);
                   setPage(1);
                 }}
-                defaultValue="4"
+                defaultValue="5"
               >
                 <option value="5">5</option>
                 <option value="10">10</option>
@@ -189,38 +192,38 @@ const Category: FC = (): ReactElement => {
       )}
 
       <ModalNewPackage
-        show={showNewCat}
-        package={CATEGORY}
-        onHide={() => setShowNewCat(false)}
+        show={showNewCond}
+        package={"Conditionnement"}
+        onHide={() => setShowNewCond(false)}
       >
-        <IconMd.MdCategory />
+        <IconBs.BsFillBoxSeamFill />
       </ModalNewPackage>
 
-      {categoryToUpdate && (
+      {conditionnementToUpdate && (
         <ModalUpdatePackage
-          data={categoryToUpdate}
-          show={showUpdateCat}
-          package={CATEGORY}
+          data={conditionnementToUpdate}
+          show={showUpdateCond}
+          package={CONDITIONNEMENT}
           onHide={() => {
-            setShowUpdateCat(false);
-            setCategoryToUpdate(null);
+            setShowUpdateCond(false);
+            setConditionnementToUpdate(null);
           }}
         >
-          <IconMd.MdCategory />
+          <IconBs.BsFillBoxSeamFill />
         </ModalUpdatePackage>
       )}
 
       <ModalConfirm
-        show={showModalConfirmDelete}
+        show={showModalConfirm}
         onHide={() => {
-          setShowModalConfirmDelete(false);
+          setShowModalConfirm(false);
         }}
         onAccept={onDeleteModalAccept}
       >
-        Do you really want to delete this category ?
+        Do you really want to delete this conditionnement ?
       </ModalConfirm>
     </div>
   );
 };
 
-export default Category;
+export default Conditionnement;

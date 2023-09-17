@@ -1,9 +1,13 @@
 import { IcategoryInitialState } from "../../slices/categorySlice";
+import { conditionnementInitialState } from "../../slices/conditionnementSlice";
+import { uniteVenteInitialState } from "../../slices/uniteVenteSlice";
 import { IpersonneInitialState } from "../../slices/personneSlice";
 import { IroleInitialState } from "../../slices/roleSlice";
 
 export default interface Istate {
   personnes: IpersonneInitialState;
   roles: IroleInitialState;
-  category: IcategoryInitialState;
+  categories: IcategoryInitialState;
+  conditionnements: conditionnementInitialState;
+  uniteVentes: uniteVenteInitialState;
 }

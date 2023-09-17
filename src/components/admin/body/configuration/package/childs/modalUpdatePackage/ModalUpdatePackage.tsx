@@ -1,66 +1,96 @@
+import "./ModalUpdatePackage.scss";
 import { FC, PropsWithChildren, ReactElement, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import * as IconBs from "react-icons/bs";
+import * as IconFa from "react-icons/fa";
 import * as IconSl from "react-icons/sl";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  CATEGORY,
+  CONDITIONNEMENT,
+  UNITEVENTE,
+} from "../../../../../../../shared/constant/constant";
+
+import {
   categoryError,
-  categoryLoadingCreate,
-  createCategory,
+  categoryLoadingUpdate,
+  updateCategory,
   resetError as resetErrorCategory,
 } from "../../../../../../../slices/categorySlice";
 import {
   conditionnementError,
-  conditionnementLoadingCreate,
-  createConditionnement,
+  conditionnementLoadingUpdate,
+  updateConditionnement,
   resetError as resetErrorConditionnement,
 } from "../../../../../../../slices/conditionnementSlice";
 import {
   uniteVenteError,
-  uniteVenteLoadingCreate,
-  createUniteVente,
+  uniteVenteLoadingUpdate,
+  updateUniteVente,
   resetError as resetErrorUniteVente,
 } from "../../../../../../../slices/uniteVenteSlice";
 import { AppDispatch } from "../../../../../../../store";
-import "./ModalNewPackage.scss";
+import category from "../../../../../../../types/category/category";
+import conditionnement from "../../../../../../../types/conditionnement/conditionnement";
+import uniteVente from "../../../../../../../types/uniteVente/uniteVente";
+
+type data = category | conditionnement | uniteVente;
 
 type props = PropsWithChildren<{
+  data: data;
   show: boolean;
   package: string;
   onHide: () => void;
 }>;
 
-const ModalNewPackage: FC<props> = (props): ReactElement => {
-  const [name, setName] = useState<string>("");
+const getPackageName: any = (toBeDetermined: data): string => {
+  if ("catArt" in toBeDetermined) return toBeDetermined.catArt;
+  else if ("condArt" in toBeDetermined) return toBeDetermined.condArt;
+  else if ("utvArt" in toBeDetermined) return toBeDetermined.utvArt;
+  else return "";
+};
 
-  const catArtCreateLoading: boolean = useSelector(categoryLoadingCreate);
+const ModalUpdatePackage: FC<props> = (props): ReactElement => {
+  const [name, setName] = useState<string>(getPackageName(props.data));
+
+  const catArtUpdateLoading: boolean = useSelector(categoryLoadingUpdate);
   const errorCategory: string = useSelector(categoryError);
 
-  const condArtCreateLoading: boolean = useSelector(
-    conditionnementLoadingCreate
+  const condArtUpdateLoading: boolean = useSelector(
+    conditionnementLoadingUpdate
   );
   const errorCond: string = useSelector(conditionnementError);
 
-  const utvArtCreateLoading: boolean = useSelector(uniteVenteLoadingCreate);
+  const utvArtUpdateLoading: boolean = useSelector(uniteVenteLoadingUpdate);
   const errorUtv: string = useSelector(uniteVenteError);
 
   const dispatch = useDispatch<AppDispatch>();
-  
-  const create = async () => {
+
+  const update = async () => {
     let res: any;
     switch (props.package) {
-      case "Category":
-        res = await dispatch(createCategory(name));
+      case CATEGORY:
+        const category: category = { id: props.data.id, catArt: name };
+        res = await dispatch(updateCategory(category));
         break;
 
-      case "Conditionnement":
-        res = await dispatch(createConditionnement(name));
+      case CONDITIONNEMENT:
+        const conditionnement: conditionnement = {
+          id: props.data.id,
+          condArt: name,
+        };
+        res = await dispatch(updateConditionnement(conditionnement));
         break;
 
-      case "Sales unit":
-        res = await dispatch(createUniteVente(name));
+      case UNITEVENTE:
+        const uniteVente: uniteVente = {
+          id: props.data.id,
+          utvArt: name,
+        };
+        res = await dispatch(updateUniteVente(uniteVente));
         break;
     }
+
     if (res!.meta.requestStatus === "fulfilled") props.onHide();
   };
 
@@ -77,7 +107,7 @@ const ModalNewPackage: FC<props> = (props): ReactElement => {
 
   return (
     <Modal
-      className="modal-new-package"
+      className="modal-update"
       show={props.show}
       onHide={props.onHide}
       centered
@@ -85,7 +115,7 @@ const ModalNewPackage: FC<props> = (props): ReactElement => {
       size="sm"
       aria-labelledby="contained-modal-title-vcenter"
     >
-      <Modal.Header closeButton>New {props.package}</Modal.Header>
+      <Modal.Header closeButton>Update {props.package}</Modal.Header>
       <Modal.Body className="text-white text-center">
         <div className="input-group input-group-sm">
           <span className="input-group-text" id="basic-addon1">
@@ -94,22 +124,19 @@ const ModalNewPackage: FC<props> = (props): ReactElement => {
           <input
             type="text"
             className={`${
-              errorCategory !== "" || errorCond !== "" || errorUtv !== ""
-                ? "is-invalid"
-                : ""
+              errorCategory !== "" ? "is-invalid" : ""
             } form-control`}
             placeholder={props.package}
+            value={name}
             onChange={(e) => setName(e.target.value)}
             onKeyDown={(e: any) => {
-              if (e.key === "Enter") create();
+              if (e.key === "Enter") update();
               else resetError();
             }}
           />
         </div>
-        {(errorCategory !== "" || errorCond !== "" || errorUtv !== "") && (
-          <p className="fs-14 text-danger mb-0">
-            {errorCategory || errorCond || errorUtv}
-          </p>
+        {errorCategory !== "" && (
+          <p className="fs-14 text-danger mb-0">{errorCategory}</p>
         )}
       </Modal.Body>
       <Modal.Footer>
@@ -120,12 +147,12 @@ const ModalNewPackage: FC<props> = (props): ReactElement => {
           <IconSl.SlClose className="fs-18 me-1" />
           Cancel
         </button>
-        <button className="btn btn-primary btn-sm" onClick={create}>
-          <IconBs.BsCheckCircle className="fs-18 me-1" />
-          Save
-          {(catArtCreateLoading ||
-            condArtCreateLoading ||
-            utvArtCreateLoading) && (
+        <button className="btn btn-primary btn-sm" onClick={update}>
+          <IconFa.FaEdit className="fs-18 me-1" />
+          Update
+          {(catArtUpdateLoading ||
+            condArtUpdateLoading ||
+            utvArtUpdateLoading) && (
             <span className="spinner-border spinner-border-sm ms-1"></span>
           )}
         </button>
@@ -134,4 +161,4 @@ const ModalNewPackage: FC<props> = (props): ReactElement => {
   );
 };
 
-export default ModalNewPackage;
+export default ModalUpdatePackage;

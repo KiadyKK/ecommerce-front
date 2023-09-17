@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as CategoryService from "../services/category.service";
-import Istate from "../types/state/state";
 import category from "../types/category/category";
+import Istate from "../types/state/state";
 
 export interface IcategoryInitialState {
   loadingCreate: boolean;
@@ -50,6 +50,18 @@ export const deleteCategory = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const res = await CategoryService.deleteCat(id);
+      return res.data;
+    } catch (error: any) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const updateCategory = createAsyncThunk(
+  "category/update",
+  async (data: category, { rejectWithValue }) => {
+    try {
+      const res = await CategoryService.updateCat(data);
       return res.data;
     } catch (error: any) {
       return rejectWithValue(error.response.data);
@@ -120,24 +132,45 @@ const categorySlice = createSlice({
       state.loadingDelete = false;
       state.error = typeof action.payload === "string" ? action.payload : "";
     });
+
+    //update**************************************
+    builder.addCase(updateCategory.pending, (state) => {
+      state.error = "";
+      state.loadingUpdate = true;
+    });
+
+    builder.addCase(updateCategory.fulfilled, (state, action) => {
+      const index: number = state.categories.findIndex(
+        (category: category) => category.id === action.payload.id
+      );
+      state.loadingUpdate = false;
+      state.categories[index] = action.payload;
+      state.error = "";
+    });
+
+    builder.addCase(updateCategory.rejected, (state, action) => {
+      state.loadingUpdate = false;
+      state.error = typeof action.payload === "string" ? action.payload : "";
+    });
   },
 });
 
-export const categoryError = (state: Istate) => state.category.error;
+export const categoryError = (state: Istate): string => state.categories.error;
 
-export const categoryLoadingCreate = (state: Istate) =>
-  state.category.loadingCreate;
+export const categoryLoadingCreate = (state: Istate): boolean =>
+  state.categories.loadingCreate;
 
-export const categoryLoadingRetrieve = (state: Istate) =>
-  state.category.loadingRetrieve;
+export const categoryLoadingRetrieve = (state: Istate): boolean =>
+  state.categories.loadingRetrieve;
 
-export const categoryLoadingUpdate = (state: Istate) =>
-  state.category.loadingUpdate;
+export const categoryLoadingUpdate = (state: Istate): boolean =>
+  state.categories.loadingUpdate;
 
-export const categoryLoadingDelete = (state: Istate) =>
-  state.category.loadingDelete;
+export const categoryLoadingDelete = (state: Istate): boolean =>
+  state.categories.loadingDelete;
 
-export const selectCategories = (state: Istate) => state.category.categories;
+export const selectCategories = (state: Istate): category[] =>
+  state.categories.categories;
 
 export const { resetError } = categorySlice.actions;
 

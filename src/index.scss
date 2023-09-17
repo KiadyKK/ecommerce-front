@@ -1,6 +1,5 @@
 :root {
   --background: whitesmoke;
-  --background-1: rgb(214, 29, 29);
   --background-body: rgb(230, 230, 230);
 
   --text-color: whitesmoke;
@@ -26,16 +25,18 @@
 
 [data-theme="dark"] {
   --background: #212529;
-  --background-1: #0d6efd;
-  --background-body: #262c31;
+  --background-inverse: #212529;
+  --background-body: #171a1d;
+  --background-body-inverse: #171a1d;
   --text-color: whitesmoke;
   --table-border: rgb(58, 60, 68);
 }
 
 [data-theme="light"] {
   --background: white;
-  --background-1: rgb(54, 179, 23);
+  --background-inverse: rgb(230, 230, 230);
   --background-body: rgb(230, 230, 230);
+  --background-body-inverse: white;
   --text-color: #212529;
   --table-border: rgb(196, 201, 214);
 }
