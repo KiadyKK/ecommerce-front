@@ -17,17 +17,17 @@ const Package: FC = (): ReactElement => {
       <RouteProgress />
 
       <div className="row px-2">
-        <div className="col-md-4 px-1">
+        <div className="col-lg-4 px-1">
           <div className="content mb-2">
             <Category />
           </div>
         </div>
-        <div className="col-md-4 px-1">
+        <div className="col-lg-4 px-1">
           <div className="content mb-2">
             <Conditionnement />
           </div>
         </div>
-        <div className="col-md-4 px-1">
+        <div className="col-lg-4 px-1">
           <div className="content mb-2">
             <UniteVente />
           </div>

@@ -1,11 +1,12 @@
 import { FC, ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./Body.scss";
+import Configuration from "./configuration/Configuration";
+import Package from "./configuration/package/Package";
+import Article from "./configuration/package/article/Article";
 import Staff from "./staff/Staff";
 import Confirm from "./staff/confirm/Confirm";
 import ListPers from "./staff/listPers/ListPers";
-import Configuration from "./configuration/Configuration";
-import Package from "./configuration/package/Package";
 
 type props = {
   collapsed: boolean;
@@ -32,6 +33,7 @@ const Body: FC<props> = ({ collapsed, screenWidth }): ReactElement => {
 
         <Route path="configuration" element={<Configuration />} />
         <Route path="configuration/package" element={<Package />} />
+        <Route path="configuration/article" element={<Article />} />
       </Routes>
     </div>
   );
