@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import * as ArtcileService from "../services/article.service";
 import article1 from "../types/article/article1";
 import Istate from "../types/state/state";
@@ -53,11 +54,17 @@ export const retrieveArticle = createAsyncThunk(
 
 export const deleteArticle = createAsyncThunk(
   "article/delete",
-  async (id: number, { rejectWithValue }) => {
+  async (refArt: string, { rejectWithValue }) => {
     try {
-      const res = await ArtcileService.deleteArt(id);
+      const res = await ArtcileService.deleteArt(refArt);
+      toast.info(`Article with reference ${refArt} deleted successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }

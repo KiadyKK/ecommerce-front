@@ -6,6 +6,7 @@ import * as IconFi from "react-icons/fi";
 import * as IconMd from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import ModalConfirm from "../../../../../../../shared/components/modalConfirm/ModalConfirm";
+import Toast from "../../../../../../../shared/components/toast/Toast";
 import { CATEGORY } from "../../../../../../../shared/constant/constant";
 import TableSkel from "../../../../../../../shared/skeletor/TableSkel";
 import {
@@ -219,6 +220,8 @@ const Category: FC = (): ReactElement => {
       >
         Do you really want to delete this category ?
       </ModalConfirm>
+
+      <Toast />
     </div>
   );
 };

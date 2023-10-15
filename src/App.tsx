@@ -10,8 +10,6 @@ import {
   Navigate,
 } from "react-router-dom";
 import "./App.scss";
-// import Home from "./components/home/Home";
-// import Profile from "./components/profile/Profile";
 import Logo from "./assets/images/Logo.png";
 import Admin from "./components/admin/Admin";
 import Auth from "./components/auth/Auth";

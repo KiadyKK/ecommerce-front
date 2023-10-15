@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as ConditionnementService from "../services/conditionnement.service";
 import Istate from "../types/state/state";
 import conditionnement from "../types/conditionnement/conditionnement";
+import { toast } from "react-toastify";
 
 export interface conditionnementInitialState {
   loadingCreate: boolean;
@@ -26,8 +27,14 @@ export const createConditionnement = createAsyncThunk(
   async (condArt: string, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.create({ condArt });
+      toast.success(`Conditioning ${condArt} created successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -40,6 +47,9 @@ export const retrieveConditionnement = createAsyncThunk(
       const res = await ConditionnementService.getAll(catArt);
       return res.data;
     } catch (error: any) {
+      toast.warning(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -50,8 +60,14 @@ export const deleteConditionnement = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.deleteCond(id);
+      toast.info(`Conditioning with id ${id} deleted successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -62,8 +78,14 @@ export const updateConditionnement = createAsyncThunk(
   async (data: conditionnement, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.updateCond(data);
+      toast.info(`Conditioning ${data.condArt} updated successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }

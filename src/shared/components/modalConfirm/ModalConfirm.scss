@@ -2,8 +2,16 @@
   background-color: var(--background);
   color: var(--text-color);
 
+  .modal-header {
+    border-bottom-color: var(--table-border);
+  }
+
   .modal-body {
     color: var(--text-color) !important;
     text-align: start !important;
+  }
+
+  .modal-footer {
+    border-top-color: var(--table-border);
   }
 }

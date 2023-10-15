@@ -22,7 +22,7 @@ export const getAll = (
   );
 };
 
-export const deleteArt = (id: number) => {
+export const deleteArt = (id: string) => {
   return http.delete(URL + `/${id}`);
 };
 

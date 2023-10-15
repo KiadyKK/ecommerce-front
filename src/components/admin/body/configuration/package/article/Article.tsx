@@ -1,13 +1,27 @@
 import { FC, ReactElement, useEffect, useState } from "react";
+import { PaginationControl } from "react-bootstrap-pagination-control";
 import * as IconBs from "react-icons/bs";
+import * as IconFa from "react-icons/fa";
+import * as IconFi from "react-icons/fi";
 import * as IconMd from "react-icons/md";
 import * as IconTb from "react-icons/tb";
-import * as IconFi from "react-icons/fi";
-import * as IconFa from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
+import "react-toastify/dist/ReactToastify.css";
+import ModalConfirm from "../../../../../../shared/components/modalConfirm/ModalConfirm";
 import RouteProgress from "../../../../../../shared/components/routeProgress/RouteProgress";
+import Toast from "../../../../../../shared/components/toast/Toast";
+import TableSkel from "../../../../../../shared/skeletor/TableSkel";
+import { convert } from "../../../../../../shared/utils/dateUtil";
+import {
+  articleLoadingDelete,
+  articleLoadingRetrieve,
+  articleLoadingUpdate,
+  deleteArticle,
+  retrieveArticle,
+  selectArticles,
+} from "../../../../../../slices/articleSlice";
 import {
   categoryLoadingRetrieve,
   retrieveCategory,
@@ -23,20 +37,10 @@ import {
   selectUniteVentes,
   uniteVenteLoadingRetrieve,
 } from "../../../../../../slices/uniteVenteSlice";
-import {
-  retrieveArticle,
-  selectArticles,
-  articleLoadingRetrieve,
-  articleLoadingDelete,
-  articleLoadingUpdate,
-} from "../../../../../../slices/articleSlice";
 import { AppDispatch } from "../../../../../../store";
-import "./Article.scss";
-import TableSkel from "../../../../../../shared/skeletor/TableSkel";
 import article1 from "../../../../../../types/article/article1";
-import { PaginationControl } from "react-bootstrap-pagination-control";
+import "./Article.scss";
 import ModalNewArticle from "./modalNewArticle/ModalNewArticle";
-import { convert } from "../../../../../../shared/utils/dateUtil";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
@@ -56,13 +60,19 @@ const Article: FC = (): ReactElement => {
   const [articleFilter, setArticleFilter] = useState<string>("");
   const loadingRetrieveArt = useSelector(articleLoadingRetrieve);
   const listArt = useSelector(selectArticles);
-  const loadingDeleteArt = useSelector(articleLoadingDelete);
-  const loadingUpdateArt = useSelector(articleLoadingUpdate);
+  const loadingDelete = useSelector(articleLoadingDelete);
+  const loadingUpdate = useSelector(articleLoadingUpdate);
 
   const [showNewArt, setShowNewArt] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
+
+  const [artIndex, setArtIndex] = useState<number | null>(null);
+  const [refArtToDelete, setRefArtToDelete] = useState<string | null>(null);
+
+  const [showModalConfirmDelete, setShowModalConfirmDelete] =
+    useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -119,6 +129,17 @@ const Article: FC = (): ReactElement => {
   const createdArt = () => {
     setShowNewArt(false);
     getArt();
+  };
+
+  const deleteArt = (id: string, index: number): void => {
+    setShowModalConfirmDelete(true);
+    setRefArtToDelete(id);
+    setArtIndex(index);
+  };
+
+  const onDeleteModalAccept = (): void => {
+    setShowModalConfirmDelete(false);
+    dispatch(deleteArticle(refArtToDelete!));
   };
 
   const getArt = () => {
@@ -326,11 +347,11 @@ const Article: FC = (): ReactElement => {
                           </button>
                           <button
                             className="btn btn-danger btn-sm box-sdw rounded-pill"
-                            // onClick={() => deleteCat(category.id, index)}
+                            onClick={() => deleteArt(article1.refArt!, index)}
                           >
-                            {/* {loadingDelete && catIndex === index && (
+                            {loadingDelete && artIndex === index && (
                               <span className="spinner-border spinner-border-sm me-1"></span>
-                            )} */}
+                            )}
                             <IconBs.BsFillTrash3Fill />
                           </button>
                         </td>
@@ -379,6 +400,18 @@ const Article: FC = (): ReactElement => {
         onHide={() => setShowNewArt(false)}
         onSubmit={createdArt}
       ></ModalNewArticle>
+
+      <ModalConfirm
+        show={showModalConfirmDelete}
+        onHide={() => {
+          setShowModalConfirmDelete(false);
+        }}
+        onAccept={onDeleteModalAccept}
+      >
+        Do you really want to delete this article ?
+      </ModalConfirm>
+      
+      <Toast />
     </div>
   );
 };

@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as CategoryService from "../services/category.service";
 import category from "../types/categorie/categorie";
 import Istate from "../types/state/state";
+import { toast } from "react-toastify";
 
 export interface IcategoryInitialState {
   loadingCreate: boolean;
@@ -26,8 +27,14 @@ export const createCategory = createAsyncThunk(
   async (catArt: string, { rejectWithValue }) => {
     try {
       const res = await CategoryService.create({ catArt });
+      toast.success(`Category ${catArt} created successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -40,6 +47,9 @@ export const retrieveCategory = createAsyncThunk(
       const res = await CategoryService.getAll(catArt);
       return res.data;
     } catch (error: any) {
+      toast.warning(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -50,8 +60,14 @@ export const deleteCategory = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const res = await CategoryService.deleteCat(id);
+      toast.info(`Category with id ${id} deleted successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
@@ -62,8 +78,14 @@ export const updateCategory = createAsyncThunk(
   async (data: category, { rejectWithValue }) => {
     try {
       const res = await CategoryService.updateCat(data);
+      toast.info(`Category ${data.catArt} updated successfully !`, {
+        className: "mt-5",
+      });
       return res.data;
     } catch (error: any) {
+      toast.error(error.response.data, {
+        className: "mt-5",
+      });
       return rejectWithValue(error.response.data);
     }
   }
