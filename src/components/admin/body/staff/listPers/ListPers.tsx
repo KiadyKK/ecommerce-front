@@ -4,8 +4,8 @@ import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import CustomModal from "../../../../../shared/components/alert/ModalConfirm";
-import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
+import CustomModal from "../../../../../shared/components/modalConfirm/ModalConfirm";
+import RouteProgress from "../../../../../shared/components/routeProgress/RouteProgress";
 import TableSkel from "../../../../../shared/skeletor/TableSkel";
 import {
   deletePersonne,
@@ -104,11 +104,9 @@ const ListPers: FC = (): ReactElement => {
               </option>
               {listRole?.map((role: Irole, index: number) => {
                 return (
-                  role.role !== "Administrateur" && (
-                    <option key={index} value={role.role}>
-                      {role.role}
-                    </option>
-                  )
+                  <option key={index} value={role.role}>
+                    {role.role}
+                  </option>
                 );
               })}
               <option className="separator" disabled></option>

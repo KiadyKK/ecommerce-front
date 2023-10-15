@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as CategoryService from "../services/category.service";
-import category from "../types/category/category";
+import category from "../types/categorie/categorie";
 import Istate from "../types/state/state";
 
 export interface IcategoryInitialState {

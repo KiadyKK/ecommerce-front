@@ -1,6 +1,6 @@
 import { FC, ReactElement } from "react";
 import * as IconFi from "react-icons/fi";
-import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
+import RouteProgress from "../../../../../shared/components/routeProgress/RouteProgress";
 import "./Package.scss";
 import Category from "./childs/category/Category";
 import Conditionnement from "./childs/conditionnement/Conditionnement";

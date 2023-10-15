@@ -4,7 +4,7 @@ import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import * as IconFi from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import ModalConfirm from "../../../../../../../shared/components/alert/ModalConfirm";
+import ModalConfirm from "../../../../../../../shared/components/modalConfirm/ModalConfirm";
 import { UNITEVENTE } from "../../../../../../../shared/constant/constant";
 import TableSkel from "../../../../../../../shared/skeletor/TableSkel";
 import {

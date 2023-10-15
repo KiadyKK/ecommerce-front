@@ -22,8 +22,8 @@
       top: 0;
       width: 0;
       height: 0;
-      border-top: 10px solid transparent;
-      border-bottom: 11px solid transparent;
+      border-top: 0.78em solid transparent;
+      border-bottom: 0.8em solid transparent;
     }
 
     &:before {
@@ -34,7 +34,7 @@
     }
 
     &:after {
-      right: -15px;
+      right: -14px;
       border-left: 15px solid var(--gris-1);
       z-index: 2;
     }

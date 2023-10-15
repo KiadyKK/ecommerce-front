@@ -3,9 +3,9 @@ import { PaginationControl } from "react-bootstrap-pagination-control";
 import * as IconBs from "react-icons/bs";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
-import RouteProgress from "../../../../../shared/routeProgress/RouteProgress";
+import RouteProgress from "../../../../../shared/components/routeProgress/RouteProgress";
 import TableSkel from "../../../../../shared/skeletor/TableSkel";
-import CustomModal from "../../../../../shared/components/alert/ModalConfirm";
+import CustomModal from "../../../../../shared/components/modalConfirm/ModalConfirm";
 import {
   personnesLoading,
   personneUpdateLoading,

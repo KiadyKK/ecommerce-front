@@ -1,0 +1,17 @@
+.input-validation {
+  background-color: var(--background-body-inverse) !important;
+  border-color: var(--table-border) !important;
+  color: var(--text-color) !important;
+
+  &:focus {
+    border-color: var(--blue) !important;
+  }
+
+  &::placeholder {
+    color: var(--gris) !important;
+  }
+
+  &.is-invalid {
+    border-color: var(--red) !important;
+  }
+}

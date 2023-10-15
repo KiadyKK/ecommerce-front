@@ -13,7 +13,7 @@ interface personne {
   email: string;
   mdp: string;
   confirmMdp: string;
-  role: string | undefined;
+  role: string;
   secretCode: string | undefined;
 }
 
@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
   confirmMdp: Yup.string()
     .required("Confirm Password is required")
     .oneOf([Yup.ref("mdp")], "Confirm Password does not match"),
-  role: Yup.string(),
+  role: Yup.string().required("Role is required"),
   secretCode: Yup.string(),
 });
 
@@ -138,11 +138,13 @@ const SignUp: FC<props> = ({ onHide }) => {
             <div className="form-group mt-3">
               <select
                 {...register("role")}
-                className="form-select signup-dropdown"
+                className={`form-select signup-dropdown ${
+                  errors.role ? "is-invalid" : ""
+                }`}
                 onChange={onRolesChange} // Using setValue
-                defaultValue="Role"
+                defaultValue=""
               >
-                <option value="Role" disabled hidden>
+                <option value="" disabled hidden>
                   Role
                 </option>
                 <option value="Administrateur">Administrateur</option>

@@ -30,7 +30,7 @@ import {
   resetError as resetErrorUniteVente,
 } from "../../../../../../../slices/uniteVenteSlice";
 import { AppDispatch } from "../../../../../../../store";
-import category from "../../../../../../../types/category/category";
+import category from "../../../../../../../types/categorie/categorie";
 import conditionnement from "../../../../../../../types/conditionnement/conditionnement";
 import uniteVente from "../../../../../../../types/uniteVente/uniteVente";
 

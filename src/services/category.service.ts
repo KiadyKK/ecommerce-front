@@ -1,5 +1,5 @@
 import http from "../helpers/interceptors/axiosInterceptor";
-import category from "../types/category/category";
+import category from "../types/categorie/categorie";
 
 const URL = "/categorie";
 

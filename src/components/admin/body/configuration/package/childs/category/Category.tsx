@@ -5,7 +5,7 @@ import * as IconFa from "react-icons/fa";
 import * as IconFi from "react-icons/fi";
 import * as IconMd from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import ModalConfirm from "../../../../../../../shared/components/alert/ModalConfirm";
+import ModalConfirm from "../../../../../../../shared/components/modalConfirm/ModalConfirm";
 import { CATEGORY } from "../../../../../../../shared/constant/constant";
 import TableSkel from "../../../../../../../shared/skeletor/TableSkel";
 import {
@@ -16,7 +16,7 @@ import {
   selectCategories,
 } from "../../../../../../../slices/categorySlice";
 import { AppDispatch } from "../../../../../../../store";
-import category from "../../../../../../../types/category/category";
+import category from "../../../../../../../types/categorie/categorie";
 import ModalNewPackage from "../modalNewPackage/ModalNewPackage";
 import ModalUpdatePackage from "../modalUpdatePackage/ModalUpdatePackage";
 import "./Category.scss";
