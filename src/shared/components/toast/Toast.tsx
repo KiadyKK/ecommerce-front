@@ -1,15 +1,35 @@
-import { FC, ReactElement, useEffect, useState } from "react";
-import { Theme, ToastContainer } from "react-toastify";
+import { FC, ReactElement } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import { getTheme } from "../../utils/functionUtil";
+import { SUCCESS, INFO, ERROR } from "../../constant/constant";
 
 const Toast: FC = (): ReactElement => {
-  const [theme, setTheme] = useState<Theme | undefined>(undefined);
+  return <ToastContainer position="top-right" autoClose={5000} />;
+};
 
-  useEffect(() => {
-    const themeStorage: string | null = localStorage.getItem("theme");
-    themeStorage === "dark" ? setTheme("dark") : setTheme("light");
-  }, []);
+export const showToast = (type: string, message: string) => {
+  switch (type) {
+    case SUCCESS:
+      toast.success(message, {
+        theme: getTheme(),
+      });
+      break;
 
-  return <ToastContainer position="top-right" autoClose={5000} theme={theme} />;
+    case INFO:
+      toast.info(message, {
+        theme: getTheme(),
+      });
+      break;
+
+    case ERROR:
+      toast.error(message, {
+        theme: getTheme(),
+      });
+      break;
+
+    default:
+      break;
+  }
 };
 
 export default Toast;

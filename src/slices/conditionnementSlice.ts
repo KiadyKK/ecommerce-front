@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import * as ConditionnementService from "../services/conditionnement.service";
-import Istate from "../types/state/state";
+import { showToast } from "../shared/components/toast/Toast";
+import { ERROR, INFO, SUCCESS } from "../shared/constant/constant";
 import conditionnement from "../types/conditionnement/conditionnement";
-import { toast } from "react-toastify";
+import Istate from "../types/state/state";
 
 export interface conditionnementInitialState {
   loadingCreate: boolean;
@@ -27,14 +28,10 @@ export const createConditionnement = createAsyncThunk(
   async (condArt: string, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.create({ condArt });
-      toast.success(`Conditioning ${condArt} created successfully !`, {
-        className: "mt-5",
-      });
+      showToast(SUCCESS, `Conditioning ${condArt} created successfully !`);
       return res.data;
     } catch (error: any) {
-      toast.error(error.response.data, {
-        className: "mt-5",
-      });
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -47,9 +44,7 @@ export const retrieveConditionnement = createAsyncThunk(
       const res = await ConditionnementService.getAll(catArt);
       return res.data;
     } catch (error: any) {
-      toast.warning(error.response.data, {
-        className: "mt-5",
-      });
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -60,32 +55,24 @@ export const deleteConditionnement = createAsyncThunk(
   async (id: number, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.deleteCond(id);
-      toast.info(`Conditioning with id ${id} deleted successfully !`, {
-        className: "mt-5",
-      });
+      showToast(INFO, `Conditioning with id ${id} deleted successfully !`);
       return res.data;
     } catch (error: any) {
-      toast.error(error.response.data, {
-        className: "mt-5",
-      });
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
 );
 
 export const updateConditionnement = createAsyncThunk(
-  "category/update",
+  "conditionnement/update",
   async (data: conditionnement, { rejectWithValue }) => {
     try {
       const res = await ConditionnementService.updateCond(data);
-      toast.info(`Conditioning ${data.condArt} updated successfully !`, {
-        className: "mt-5",
-      });
+      showToast(INFO, `Conditioning ${data.condArt} updated successfully !`);
       return res.data;
     } catch (error: any) {
-      toast.error(error.response.data, {
-        className: "mt-5",
-      });
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -164,7 +151,8 @@ const conditionnementSlice = createSlice({
 
     builder.addCase(updateConditionnement.fulfilled, (state, action) => {
       const index: number = state.conditionnements.findIndex(
-        (category: conditionnement) => category.id === action.payload.id
+        (conditionnement: conditionnement) =>
+          conditionnement.id === action.payload.id
       );
       state.loadingUpdate = false;
       state.conditionnements[index] = action.payload;

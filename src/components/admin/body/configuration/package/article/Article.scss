@@ -14,7 +14,7 @@
       margin-bottom: 10px;
 
       .add-button button {
-        max-height: 29px;
+        max-height: 36px;
       }
 
       div {
@@ -67,12 +67,13 @@
 
         .input-group {
           max-width: 180px;
-          max-height: 30px !important;
+          height: 38px !important;
 
           input {
             background-color: var(--background);
             border-color: var(--table-border);
             color: var(--text-color);
+            height: 38px !important;
 
             &:focus {
               border-color: var(--blue);
@@ -150,9 +151,4 @@
       }
     }
   }
-}
-
-.css-13cymwt-control,
-.css-t3ipsp-control {
-  min-height: 29px !important;
 }

@@ -25,6 +25,10 @@
       &::placeholder {
         color: var(--gris);
       }
+
+      &.is-invalid {
+        border-color: var(--red);
+      }
     }
   }
 

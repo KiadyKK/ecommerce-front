@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 import * as ArtcileService from "../services/article.service";
 import article1 from "../types/article/article1";
 import Istate from "../types/state/state";
+import { showToast } from "../shared/components/toast/Toast";
+import { ERROR, INFO } from "../shared/constant/constant";
+import articleUpdate from "../types/article/articleUpdate";
 
 export interface articleInitialState {
   loadingCreate: boolean;
@@ -29,12 +32,12 @@ export const retrieveArticle = createAsyncThunk(
       catArtFilter,
       condArtFilter,
       utvArtFilter,
-      articleFilter,
+      desArtFilter,
     }: {
       catArtFilter: string;
       condArtFilter: string;
       utvArtFilter: string;
-      articleFilter: string;
+      desArtFilter: string;
     },
     { rejectWithValue }
   ) => {
@@ -43,10 +46,11 @@ export const retrieveArticle = createAsyncThunk(
         catArtFilter,
         condArtFilter,
         utvArtFilter,
-        articleFilter
+        desArtFilter
       );
       return res.data;
     } catch (error: any) {
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -57,14 +61,10 @@ export const deleteArticle = createAsyncThunk(
   async (refArt: string, { rejectWithValue }) => {
     try {
       const res = await ArtcileService.deleteArt(refArt);
-      toast.info(`Article with reference ${refArt} deleted successfully !`, {
-        className: "mt-5",
-      });
+      showToast(INFO, `Article with reference ${refArt} deleted successfully !`);
       return res.data;
     } catch (error: any) {
-      toast.error(error.response.data, {
-        className: "mt-5",
-      });
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -72,11 +72,13 @@ export const deleteArticle = createAsyncThunk(
 
 export const updateArticle = createAsyncThunk(
   "article/update",
-  async (data: article1, { rejectWithValue }) => {
+  async (data: articleUpdate, { rejectWithValue }) => {
     try {
       const res = await ArtcileService.updateArt(data);
+      showToast(INFO, `Article ${data.desArt} updated successfully !`);
       return res.data;
     } catch (error: any) {
+      showToast(ERROR, error.response.data);
       return rejectWithValue(error.response.data);
     }
   }
@@ -117,7 +119,7 @@ const articleSlice = createSlice({
 
     builder.addCase(deleteArticle.fulfilled, (state, action) => {
       const index: number = state.articles.findIndex(
-        (category: article1) => category.refArt === action.payload
+        (article: article1) => article.refArt == action.payload
       );
       state.loadingDelete = false;
       state.articles.splice(index, 1);
@@ -153,17 +155,13 @@ const articleSlice = createSlice({
 
 export const articleError = (state: Istate): string => state.articles.error;
 
-export const articleLoadingRetrieve = (state: Istate): boolean =>
-  state.articles.loadingRetrieve;
+export const articleLoadingRetrieve = (state: Istate): boolean => state.articles.loadingRetrieve;
 
-export const articleLoadingUpdate = (state: Istate): boolean =>
-  state.articles.loadingUpdate;
+export const articleLoadingUpdate = (state: Istate): boolean => state.articles.loadingUpdate;
 
-export const articleLoadingDelete = (state: Istate): boolean =>
-  state.articles.loadingDelete;
+export const articleLoadingDelete = (state: Istate): boolean => state.articles.loadingDelete;
 
-export const selectArticles = (state: Istate): article1[] =>
-  state.articles.articles;
+export const selectArticles = (state: Istate): article1[] => state.articles.articles;
 
 export const { resetError } = articleSlice.actions;
 

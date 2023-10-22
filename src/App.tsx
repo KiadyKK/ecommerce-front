@@ -2,21 +2,22 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { FC, PropsWithChildren, useEffect, useState } from "react";
 import * as Icon from "react-icons/bs";
 import * as IconMD from "react-icons/md";
+import { SkeletonTheme } from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
 import {
   NavLink,
+  Navigate,
   Route,
   Routes,
   useNavigate,
-  Navigate,
 } from "react-router-dom";
 import "./App.scss";
 import Logo from "./assets/images/Logo.png";
 import Admin from "./components/admin/Admin";
 import Auth from "./components/auth/Auth";
-import * as StorageService from "./services/storage.service";
 import PrivateRoute from "./guards/privateRoute";
-import { SkeletonTheme } from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
+import * as StorageService from "./services/storage.service";
+import Toast from "./shared/components/toast/Toast";
 
 type NavProps = PropsWithChildren<{
   url: string;
@@ -170,6 +171,8 @@ const App: FC = (): React.ReactElement => {
           </Routes>{" "}
         </SkeletonTheme>
       </div>
+
+      <Toast />
     </div>
   );
 };

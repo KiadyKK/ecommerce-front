@@ -1,19 +1,19 @@
-import { FC, ReactElement } from "react";
+import { FC, ReactElement, useEffect } from "react";
 import "./InputValidation.scss";
 import { FieldError } from "react-hook-form";
 
 type props = {
   register: any;
   error: FieldError | undefined;
-  placeholder: string;
-  resetError: () => void;
+  placeholder?: string;
+  resetError?: () => void;
 };
 
 const InputValidation: FC<props> = ({
   register,
   error,
   placeholder,
-  resetError
+  resetError,
 }): ReactElement => {
   return (
     <input
