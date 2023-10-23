@@ -92,7 +92,7 @@ const Confirm: FC = (): ReactElement => {
 
       <div className="content">
         <div className="d-flex justify-content-end mb-2">
-          {!listRoleLoading ? (
+          {listRoleLoading ? (
             <select
               className="form-select form-select-sm ms-auto"
               aria-label=".form-select-sm example"

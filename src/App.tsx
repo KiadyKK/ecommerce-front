@@ -4,13 +4,7 @@ import * as Icon from "react-icons/bs";
 import * as IconMD from "react-icons/md";
 import { SkeletonTheme } from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-import {
-  NavLink,
-  Navigate,
-  Route,
-  Routes,
-  useNavigate,
-} from "react-router-dom";
+import { NavLink, Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import "./App.scss";
 import Logo from "./assets/images/Logo.png";
 import Admin from "./components/admin/Admin";
@@ -18,6 +12,7 @@ import Auth from "./components/auth/Auth";
 import PrivateRoute from "./guards/privateRoute";
 import * as StorageService from "./services/storage.service";
 import Toast from "./shared/components/toast/Toast";
+import "react-toastify/dist/ReactToastify.css";
 
 type NavProps = PropsWithChildren<{
   url: string;
@@ -41,8 +36,7 @@ const App: FC = (): React.ReactElement => {
   const [authStatus, setAuthStatus] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  const handleNavCollapse = (): void =>
-    setIsNavCollapsed((isNavCollapsed) => !isNavCollapsed);
+  const handleNavCollapse = (): void => setIsNavCollapsed((isNavCollapsed) => !isNavCollapsed);
 
   useEffect(() => {
     const currentUser: string | null = StorageService.getItem("username");
@@ -83,9 +77,7 @@ const App: FC = (): React.ReactElement => {
 
   return (
     <div>
-      <nav
-        className={`navbar navbar-expand-lg navbar-dark fixed-top px-4 nav-menu`}
-      >
+      <nav className={`navbar navbar-expand-lg navbar-dark fixed-top px-4 nav-menu`}>
         <img src={Logo} alt="logo mern" />
         <button
           className="custom-toggler navbar-toggler"
@@ -109,9 +101,7 @@ const App: FC = (): React.ReactElement => {
             <Nav url={"/shop"}>Shop</Nav>
             <Nav url={"/promotion"}>Promotion</Nav>
             <Nav url={"/contact"}>Contact</Nav>
-            {currentUser && role !== "Utilisateur" && (
-              <Nav url={"/admin"}>Administration</Nav>
-            )}
+            {currentUser && role !== "Utilisateur" && <Nav url={"/admin"}>Administration</Nav>}
           </ul>
 
           <button className="button-menu-toggle" onClick={toggleTheme}>
@@ -130,11 +120,7 @@ const App: FC = (): React.ReactElement => {
                 </NavLink>
               </li>
               <li className="nav-item">
-                <button
-                  type="button"
-                  className="log btn btn-outline-primary"
-                  onClick={logOut}
-                >
+                <button type="button" className="log btn btn-outline-primary" onClick={logOut}>
                   <Icon.BsPersonCircle className="me-1" /> Logout
                 </button>
               </li>
@@ -167,8 +153,9 @@ const App: FC = (): React.ReactElement => {
             <Route element={<PrivateRoute />}>
               <Route path="/admin/*" element={<Admin />} />
             </Route>
+
             <Route path="/" element={<Navigate to={"/home"} />} />
-          </Routes>{" "}
+          </Routes>
         </SkeletonTheme>
       </div>
 

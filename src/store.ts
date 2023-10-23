@@ -1,10 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
-import personneReducer from "./slices/personneSlice";
-import roleReducer from "./slices/roleSlice";
+import agenceReducer from "./slices/agenceSlice";
+import articleReducer from "./slices/articleSlice";
 import categoryReducer from "./slices/categorySlice";
 import conditionnementReducer from "./slices/conditionnementSlice";
+import personneReducer from "./slices/personneSlice";
+import roleReducer from "./slices/roleSlice";
 import uniteVenteReducer from "./slices/uniteVenteSlice";
-import articleReducer from "./slices/articleSlice";
 
 const reducer = {
   personnes: personneReducer,
@@ -13,6 +14,7 @@ const reducer = {
   conditionnements: conditionnementReducer,
   uniteVentes: uniteVenteReducer,
   articles: articleReducer,
+  agences: agenceReducer,
 };
 
 const store = configureStore({

@@ -166,20 +166,15 @@ const categorySlice = createSlice({
 
 export const categoryError = (state: Istate): string => state.categories.error;
 
-export const categoryLoadingCreate = (state: Istate): boolean =>
-  state.categories.loadingCreate;
+export const categoryLoadingCreate = (state: Istate): boolean => state.categories.loadingCreate;
 
-export const categoryLoadingRetrieve = (state: Istate): boolean =>
-  state.categories.loadingRetrieve;
+export const categoryLoadingRetrieve = (state: Istate): boolean => state.categories.loadingRetrieve;
 
-export const categoryLoadingUpdate = (state: Istate): boolean =>
-  state.categories.loadingUpdate;
+export const categoryLoadingUpdate = (state: Istate): boolean => state.categories.loadingUpdate;
 
-export const categoryLoadingDelete = (state: Istate): boolean =>
-  state.categories.loadingDelete;
+export const categoryLoadingDelete = (state: Istate): boolean => state.categories.loadingDelete;
 
-export const selectCategories = (state: Istate): category[] =>
-  state.categories.categories;
+export const selectCategories = (state: Istate): category[] => state.categories.categories;
 
 export const { resetError } = categorySlice.actions;
 

@@ -4,6 +4,7 @@ import { uniteVenteInitialState } from "../../slices/uniteVenteSlice";
 import { IpersonneInitialState } from "../../slices/personneSlice";
 import { IroleInitialState } from "../../slices/roleSlice";
 import { articleInitialState } from "../../slices/articleSlice";
+import { agenceInitialState } from "../../slices/agenceSlice";
 
 export default interface Istate {
   personnes: IpersonneInitialState;
@@ -12,4 +13,5 @@ export default interface Istate {
   conditionnements: conditionnementInitialState;
   uniteVentes: uniteVenteInitialState;
   articles: articleInitialState;
+  agences: agenceInitialState;
 }

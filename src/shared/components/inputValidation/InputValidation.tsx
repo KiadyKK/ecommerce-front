@@ -6,6 +6,7 @@ type props = {
   register: any;
   error: FieldError | undefined;
   placeholder?: string;
+  type?: string;
   resetError?: () => void;
 };
 
@@ -13,11 +14,12 @@ const InputValidation: FC<props> = ({
   register,
   error,
   placeholder,
+  type = "text",
   resetError,
 }): ReactElement => {
   return (
     <input
-      type="text"
+      type={type}
       {...register}
       className={`input-validation form-control ${error ? "is-invalid" : ""}`}
       placeholder={placeholder}

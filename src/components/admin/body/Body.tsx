@@ -1,6 +1,7 @@
 import { FC, ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./Body.scss";
+import Agence from "./agence/Agence";
 import Configuration from "./configuration/Configuration";
 import Package from "./configuration/package/Package";
 import Article from "./configuration/package/article/Article";
@@ -34,6 +35,8 @@ const Body: FC<props> = ({ collapsed, screenWidth }): ReactElement => {
         <Route path="configuration" element={<Configuration />} />
         <Route path="configuration/package" element={<Package />} />
         <Route path="configuration/article" element={<Article />} />
+
+        <Route path="agence" element={<Agence />} />
       </Routes>
     </div>
   );

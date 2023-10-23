@@ -1,4 +1,4 @@
-.modal-new-article div div {
+.modal-new-agence div div {
   background-color: var(--background-inverse);
 
   .modal-header {
@@ -6,15 +6,8 @@
     color: var(--text-color);
   }
 
-  .form-article {
+  .form-agence {
     .modal-body {
-      div .preview {
-        width: 100px;
-        height: 100px;
-        border-radius: 5px;
-        box-shadow: 2px 2px 5px var(--gris);
-      }
-
       .row div {
         .input-group {
           span {
@@ -41,35 +34,6 @@
             }
           }
         }
-
-        .d-flex {
-          max-height: 35px !important;
-
-          span {
-            background-color: var(--background-body-inverse) !important;
-            border: 1px solid var(--table-border);
-            border-top-left-radius: 6px;
-            border-bottom-left-radius: 6px;
-            border-right: none;
-            color: var(--blue) !important;
-            padding: 6px 12px !important;
-            display: flex;
-          }
-        }
-
-        .select-skel {
-          height: 85%;
-          display: flex;
-        }
-      }
-    }
-
-    .progress {
-      height: auto !important;
-
-      .progress-bar {
-        height: 1px;
-        background-color: var(--blue);
       }
     }
 

@@ -5,6 +5,7 @@ import * as IconTi from "react-icons/ti";
 import * as IconFi from "react-icons/fi";
 import * as IconTb from "react-icons/tb";
 import * as IconAi from "react-icons/ai";
+import * as IconHi2 from "react-icons/hi2";
 
 export interface InavbarDataChild {
   label: string;
@@ -28,9 +29,7 @@ export const navbarData: InavbarData[] = [
       {
         label: "Confirm",
         link: "staff/confirm",
-        icon: (
-          <IconBs.BsFillPersonCheckFill className="sidenav-link-icon me-2" />
-        ),
+        icon: <IconBs.BsFillPersonCheckFill className="sidenav-link-icon me-2" />,
       },
       {
         label: "List",
@@ -57,15 +56,8 @@ export const navbarData: InavbarData[] = [
     ],
   },
   {
-    link: "staff1",
-    icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
-    label: "Staff1",
-    childs: [
-      {
-        label: "Confirm1",
-        link: "staff/confirm1",
-        icon: <IconBs.BsPersonCircle className="sidenav-link-icon me-2" />,
-      },
-    ],
+    link: "agence",
+    icon: <IconHi2.HiHome className="sidenav-link-icon me-2" />,
+    label: "Agency",
   },
 ];

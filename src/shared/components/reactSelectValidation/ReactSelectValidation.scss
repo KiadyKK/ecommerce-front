@@ -1,45 +1,93 @@
 .auto-complete {
-  width: 180px !important;
-
   .select__control {
-    background-color: var(--background);
-    border-color: var(--table-border);
+    background-color: var(--background-body-inverse) !important;
+    border-color: var(--table-border) !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 6px !important;
+    border-bottom-right-radius: 6px !important;
+    cursor: auto;
 
     .select__value-container {
+      background-color: var(--background-body-inverse) !important;
       padding: 0px 8px !important;
 
+      .select__placeholder {
+        z-index: 1;
+        background-color: var(--background-body-inverse) !important;
+        color: var(--gris) !important;
+      }
+
       .select__single-value {
+        z-index: 1;
+        background-color: var(--background-body-inverse) !important;
         color: var(--text-color) !important;
       }
 
       .select__input-container {
+        background-color: var(--background-body-inverse) !important;
         color: var(--text-color) !important;
       }
     }
 
     .select__indicators {
+      background-color: var(--background-body-inverse) !important;
+      border-top-right-radius: 6px !important;
+      border-bottom-right-radius: 6px !important;
+
       .select__indicator-separator {
         display: none !important;
       }
 
       .select__indicator {
+        background-color: var(--background-body-inverse) !important;
         padding: 0px 8px !important;
         color: var(--text-color);
       }
     }
+
+    &:focus-within {
+      border: 1.5px solid var(--blue) !important;
+    }
   }
 
-  .select__menu div {
-    background-color: var(--background) !important;
-    color: var(--text-color) !important;
+  .select__menu {
+    z-index: 2 !important;
 
     div {
-      padding: 0px 10px !important;
-      height: 25px !important;
+      background-color: var(--background-body-inverse) !important;
+      color: var(--text-color) !important;
 
-      &:hover {
-        background-color: var(--blue) !important;
-        color: var(--white) !important;
+      div {
+        padding: 0px 10px !important;
+        height: 25px !important;
+
+        &:hover {
+          background-color: var(--blue) !important;
+          color: var(--white) !important;
+        }
+      }
+    }
+  }
+
+  &.is-invalid {
+    transition: none !important;
+    border-top-right-radius: 9px !important;
+    border-bottom-right-radius: 9px !important;
+
+    min-height: 43px !important;
+
+    &:focus-within {
+      border: solid 4px var(--invalid-blur) !important;
+      top: -4px;
+      left: -4px;
+    }
+
+    .select__control {
+      border: solid 1px var(--red) !important;
+
+      &:focus-within {
+        box-shadow: none;
       }
     }
   }

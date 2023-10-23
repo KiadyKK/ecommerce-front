@@ -268,7 +268,7 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
             </div>
             <div className="col-md-6">
               {loadingRetrieveCat ? (
-                <Skeleton className="select-skel" />
+                <Skeleton className="select-skel"/>
               ) : (
                 <>
                   <div className="d-flex">

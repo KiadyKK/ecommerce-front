@@ -8,6 +8,7 @@ type props = {
   defaultValue: string | number;
   modify: () => void;
   name: string;
+  type?: string;
 };
 
 const InputModifyValidation: FC<props> = ({
@@ -16,8 +17,8 @@ const InputModifyValidation: FC<props> = ({
   defaultValue,
   modify,
   name,
+  type = "text",
 }): ReactElement => {
-
   const onChange = (e: any) => {
     setValue(`${name}`, e.target.value, { shouldValidate: true });
     modify();
@@ -25,7 +26,7 @@ const InputModifyValidation: FC<props> = ({
 
   return (
     <input
-      type="text"
+      type={type}
       className={`input-modify-validation form-control ${error ? "is-invalid" : ""}`}
       onChange={onChange}
       defaultValue={defaultValue}

@@ -10,7 +10,6 @@ import * as IconTb from "react-icons/tb";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import "react-toastify/dist/ReactToastify.css";
 import * as Yup from "yup";
 import InputModifyValidation from "../../../../../../shared/components/inputModifyValidation/InputModifyValidation";
 import ModalConfirm from "../../../../../../shared/components/modalConfirm/ModalConfirm";
@@ -260,7 +259,7 @@ const Article: FC = (): ReactElement => {
               <Skeleton className="select-skel" />
             ) : (
               <Select
-                className="basic-single auto-complete"
+                className="basic-single auto-complete-search"
                 classNamePrefix="select"
                 isClearable
                 isSearchable
@@ -282,7 +281,7 @@ const Article: FC = (): ReactElement => {
               <Skeleton className="select-skel" />
             ) : (
               <Select
-                className="basic-single auto-complete"
+                className="basic-single auto-complete-search"
                 classNamePrefix="select"
                 isClearable
                 isSearchable
@@ -304,7 +303,7 @@ const Article: FC = (): ReactElement => {
               <Skeleton className="select-skel" />
             ) : (
               <Select
-                className="basic-single auto-complete"
+                className="basic-single auto-complete-search"
                 classNamePrefix="select"
                 isClearable
                 isSearchable
@@ -528,6 +527,9 @@ const Article: FC = (): ReactElement => {
                                 type="submit"
                                 className="btn btn-success btn-sm box-sdw rounded-pill me-2"
                               >
+                                {loadingUpdate && artIndex === index && (
+                                  <span className="spinner-border spinner-border-sm me-1"></span>
+                                )}
                                 <IconFa.FaSave />
                               </button>
                             ) : (
@@ -536,9 +538,6 @@ const Article: FC = (): ReactElement => {
                                 className="btn btn-secondary btn-sm box-sdw rounded-pill me-2"
                                 onClick={() => modifyArt(article1, index)}
                               >
-                                {loadingUpdate && artIndex === index && (
-                                  <span className="spinner-border spinner-border-sm me-1"></span>
-                                )}
                                 <IconFa.FaEdit />
                               </button>
                             )}

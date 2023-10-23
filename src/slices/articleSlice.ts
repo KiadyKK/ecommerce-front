@@ -1,11 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import * as ArtcileService from "../services/article.service";
-import article1 from "../types/article/article1";
-import Istate from "../types/state/state";
 import { showToast } from "../shared/components/toast/Toast";
 import { ERROR, INFO } from "../shared/constant/constant";
+import article1 from "../types/article/article1";
 import articleUpdate from "../types/article/articleUpdate";
+import Istate from "../types/state/state";
 
 export interface articleInitialState {
   loadingCreate: boolean;

@@ -18,7 +18,13 @@
       }
 
       div {
-        .auto-complete {
+        .select-skel {
+          height: 60%;
+          width: 180px;
+          display: flex;
+        }
+
+        .auto-complete-search {
           width: 180px !important;
 
           .select__control {
@@ -46,6 +52,10 @@
                 padding: 0px 8px !important;
                 color: var(--text-color);
               }
+            }
+
+            &:focus-within {
+              border: 1.5px solid var(--blue) !important;
             }
           }
 
