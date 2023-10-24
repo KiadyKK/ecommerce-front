@@ -1,98 +1,22 @@
-import { FC, ReactElement } from "react";
-import "./DetailAgence.scss";
-import { NavLink } from "react-router-dom";
-import * as IconBs from "react-icons/bs";
-import * as IconFa from "react-icons/fa";
+import { FC, ReactElement, useEffect, useState } from "react";
+import Sidenav from "../../../../../shared/components/rightNav/Sidenav";
+import BodyAgence from "./bodyAgence/BodyAgence";
+import { navbarData } from "./navDataAgence/sidenav-data";
 
 const DetailAgence: FC = (): ReactElement => {
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const [screenWidth, setScreenWidth] = useState<number>(0);
+
+  const onToggleSidenav = (collapse: boolean, screenWidth: number): void => {
+    setScreenWidth(screenWidth);
+    setCollapsed(collapse);
+  };
+
   return (
-    <div className="container-fluid wrap-agence py-5 h-100">
-      <div className="row d-flex justify-content-center">
-        <NavLink
-          to={"confirm"}
-          className="staff-confirm d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconBs.BsFillPersonCheckFill className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">Confirm</h2>
-        </NavLink>
-
-        <NavLink
-          to={"list"}
-          className="staff-list d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconFa.FaListUl className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">List</h2>
-        </NavLink>
-
-        <NavLink
-          to={"confirm"}
-          className="staff-confirm d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconBs.BsFillPersonCheckFill className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">Confirm</h2>
-        </NavLink>
-
-        <NavLink
-          to={"list"}
-          className="staff-list d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconFa.FaListUl className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">List</h2>
-        </NavLink>
-      </div>
-
-      <div className=" row d-flex justify-content-center">
-        <NavLink
-          to={"confirm"}
-          className="staff-confirm d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconBs.BsFillPersonCheckFill className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">Confirm</h2>
-        </NavLink>
-
-        <NavLink
-          to={"list"}
-          className="staff-list d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconFa.FaListUl className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">List</h2>
-        </NavLink>
-
-        <NavLink
-          to={"confirm"}
-          className="staff-confirm d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconBs.BsFillPersonCheckFill className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">Confirm</h2>
-        </NavLink>
-
-        <NavLink
-          to={"list"}
-          className="staff-list d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconFa.FaListUl className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">List</h2>
-        </NavLink>
-      </div>
-
-      <div className="d-flex justify-content-center">
-        <NavLink
-          to={"list"}
-          className="staff-list d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconFa.FaListUl className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">List</h2>
-        </NavLink>
-
-        <NavLink
-          to={"confirm"}
-          className="staff-confirm d-flex flex-column justify-content-center align-items-center text-decoration-none"
-        >
-          <IconBs.BsFillPersonCheckFill className="staff-icon px-3 py-3 w-50 h-50" />
-          <h2 className="mt-2">Confirm</h2>
-        </NavLink>
-      </div>
-    </div>
+    <>
+      <BodyAgence collapsed={collapsed} screenWidth={screenWidth}></BodyAgence>
+      <Sidenav navbarData={navbarData} onToggleSidenav={onToggleSidenav}></Sidenav>
+    </>
   );
 };
 

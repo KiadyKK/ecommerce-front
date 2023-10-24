@@ -11,6 +11,10 @@ export const getAll = (agc: string) => {
   return http.get(URL + `?agc=${agc}`);
 };
 
+export const getByAbr = (abrAgc: string) => {
+  return http.get(URL + `/abr?abrAgc=${abrAgc}`);
+};
+
 export const remove = (abrAgc: string) => {
   return http.delete(URL + `/${abrAgc}`);
 };

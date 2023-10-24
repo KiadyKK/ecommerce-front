@@ -13,31 +13,31 @@ import * as IconVsc from "react-icons/vsc";
 import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
-import { create } from "../../../../../../../services/article.service";
-import ErrorValidation from "../../../../../../../shared/components/errorValidation/ErrorValidation";
-import InputValidation from "../../../../../../../shared/components/inputValidation/InputValidation";
-import ReactSelectValidation from "../../../../../../../shared/components/reactSelectValidation/ReactSelectValidation";
-import { showToast } from "../../../../../../../shared/components/toast/Toast";
-import { ERROR, SUCCESS } from "../../../../../../../shared/constant/constant";
+import { create } from "../../../../../../services/article.service";
+import ErrorValidation from "../../../../../../shared/components/errorValidation/ErrorValidation";
+import InputValidation from "../../../../../../shared/components/inputValidation/InputValidation";
+import ReactSelectValidation from "../../../../../../shared/components/reactSelectValidation/ReactSelectValidation";
+import { showToast } from "../../../../../../shared/components/toast/Toast";
+import { ERROR, SUCCESS } from "../../../../../../shared/constant/constant";
 import {
   categoryLoadingRetrieve,
   retrieveCategory,
   selectCategories,
-} from "../../../../../../../slices/categorySlice";
+} from "../../../../../../slices/categorySlice";
 import {
   conditionnementLoadingRetrieve,
   retrieveConditionnement,
   selectConditionnements,
-} from "../../../../../../../slices/conditionnementSlice";
+} from "../../../../../../slices/conditionnementSlice";
 import {
   retrieveUniteVente,
   selectUniteVentes,
   uniteVenteLoadingRetrieve,
-} from "../../../../../../../slices/uniteVenteSlice";
-import { AppDispatch } from "../../../../../../../store";
-import categorie from "../../../../../../../types/categorie/categorie";
-import conditionnement from "../../../../../../../types/conditionnement/conditionnement";
-import uniteVente from "../../../../../../../types/uniteVente/uniteVente";
+} from "../../../../../../slices/uniteVenteSlice";
+import { AppDispatch } from "../../../../../../store";
+import categorie from "../../../../../../types/categorie/categorie";
+import conditionnement from "../../../../../../types/conditionnement/conditionnement";
+import uniteVente from "../../../../../../types/uniteVente/uniteVente";
 import "./ModalNewArticle.scss";
 
 type props = {

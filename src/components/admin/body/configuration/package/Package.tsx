@@ -2,11 +2,12 @@ import { FC, ReactElement } from "react";
 import * as IconFi from "react-icons/fi";
 import RouteProgress from "../../../../../shared/components/routeProgress/RouteProgress";
 import "./Package.scss";
-import Category from "./childs/category/Category";
-import Conditionnement from "./childs/conditionnement/Conditionnement";
-import UniteVente from "./childs/uniteVente/UniteVente";
+import Category from "./category/Category";
+import Conditionnement from "./conditionnement/Conditionnement";
+import UniteVente from "./uniteVente/UniteVente";
 
 const Package: FC = (): ReactElement => {
+  
   return (
     <div className="bg px-2">
       <h4 className="pt-2">

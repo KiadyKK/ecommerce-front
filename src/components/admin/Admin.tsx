@@ -15,10 +15,7 @@ const Admin: FC = (): ReactElement => {
   return (
     <>
       <Sidenav onToggleSidenav={onToggleSidenav}></Sidenav>
-      <Body
-        collapsed={collapsed}
-        screenWidth={screenWidth}
-      ></Body>
+      <Body collapsed={collapsed} screenWidth={screenWidth}></Body>
     </>
   );
 };

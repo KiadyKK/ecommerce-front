@@ -11,13 +11,13 @@ import Skeleton from "react-loading-skeleton";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
 import * as Yup from "yup";
-import InputModifyValidation from "../../../../../../shared/components/inputModifyValidation/InputModifyValidation";
-import ModalConfirm from "../../../../../../shared/components/modalConfirm/ModalConfirm";
-import ReactSelectModifyValidation from "../../../../../../shared/components/reactSelectModifyValidation/ReactSelectModifyValidation";
-import RouteProgress from "../../../../../../shared/components/routeProgress/RouteProgress";
-import TableSkel from "../../../../../../shared/skeletor/TableSkel";
-import { convert } from "../../../../../../shared/utils/dateUtil";
-import { floatNumberWithSpaces } from "../../../../../../shared/utils/functionUtil";
+import InputModifyValidation from "../../../../../shared/components/inputModifyValidation/InputModifyValidation";
+import ModalConfirm from "../../../../../shared/components/modalConfirm/ModalConfirm";
+import ReactSelectModifyValidation from "../../../../../shared/components/reactSelectModifyValidation/ReactSelectModifyValidation";
+import RouteProgress from "../../../../../shared/components/routeProgress/RouteProgress";
+import TableSkel from "../../../../../shared/skeletor/TableSkel";
+import { convert } from "../../../../../shared/utils/dateUtil";
+import { floatNumberWithSpaces } from "../../../../../shared/utils/functionUtil";
 import {
   articleLoadingDelete,
   articleLoadingRetrieve,
@@ -26,28 +26,28 @@ import {
   retrieveArticle,
   selectArticles,
   updateArticle,
-} from "../../../../../../slices/articleSlice";
+} from "../../../../../slices/articleSlice";
 import {
   categoryLoadingRetrieve,
   retrieveCategory,
   selectCategories,
-} from "../../../../../../slices/categorySlice";
+} from "../../../../../slices/categorySlice";
 import {
   conditionnementLoadingRetrieve,
   retrieveConditionnement,
   selectConditionnements,
-} from "../../../../../../slices/conditionnementSlice";
+} from "../../../../../slices/conditionnementSlice";
 import {
   retrieveUniteVente,
   selectUniteVentes,
   uniteVenteLoadingRetrieve,
-} from "../../../../../../slices/uniteVenteSlice";
-import { AppDispatch } from "../../../../../../store";
-import article1 from "../../../../../../types/article/article1";
-import articleUpdate from "../../../../../../types/article/articleUpdate";
+} from "../../../../../slices/uniteVenteSlice";
+import { AppDispatch } from "../../../../../store";
+import article1 from "../../../../../types/article/article1";
+import articleUpdate from "../../../../../types/article/articleUpdate";
 import "./Article.scss";
 import ModalNewArticle from "./modalNewArticle/ModalNewArticle";
-import useChangeInput from "../../../../../../shared/customHook/useChange";
+import useChangeInput from "../../../../../shared/customHook/useChange";
 
 const API_URL = process.env.REACT_APP_API_URL;
 

@@ -267,7 +267,7 @@ const Agence: FC = (): ReactElement => {
                             <button
                               type="button"
                               className="btn btn-info btn-sm box-sdw rounded-pill me-2"
-                              onClick={() => navigate(`detail/${agence.abrAgc.toLocaleLowerCase()}`)}
+                              onClick={() => navigate(`${agence.abrAgc.toLocaleLowerCase()}`)}
                             >
                               <IconTi.TiInfoLarge className="fs-16" />
                             </button>

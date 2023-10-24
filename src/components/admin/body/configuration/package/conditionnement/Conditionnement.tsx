@@ -4,72 +4,75 @@ import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
 import * as IconFi from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
-import ModalConfirm from "../../../../../../../shared/components/modalConfirm/ModalConfirm";
-import { UNITEVENTE } from "../../../../../../../shared/constant/constant";
-import TableSkel from "../../../../../../../shared/skeletor/TableSkel";
+import ModalConfirm from "../../../../../../shared/components/modalConfirm/ModalConfirm";
+import { CONDITIONNEMENT } from "../../../../../../shared/constant/constant";
+import TableSkel from "../../../../../../shared/skeletor/TableSkel";
 import {
-  deleteUniteVente,
-  retrieveUniteVente,
-  selectUniteVentes,
-  uniteVenteLoadingDelete,
-  uniteVenteLoadingRetrieve,
-} from "../../../../../../../slices/uniteVenteSlice";
-import { AppDispatch } from "../../../../../../../store";
-import uniteVente from "../../../../../../../types/uniteVente/uniteVente";
+  conditionnementLoadingDelete,
+  conditionnementLoadingRetrieve,
+  deleteConditionnement,
+  retrieveConditionnement,
+  selectConditionnements,
+} from "../../../../../../slices/conditionnementSlice";
+import { AppDispatch } from "../../../../../../store";
+import conditionnement from "../../../../../../types/conditionnement/conditionnement";
 import ModalNewPackage from "../modalNewPackage/ModalNewPackage";
 import ModalUpdatePackage from "../modalUpdatePackage/ModalUpdatePackage";
+import "./Conditionnement.scss";
 
-const UniteVente: FC = (): ReactElement => {
-  const [searchUniteVente, setSearchUniteVente] = useState<string>("");
+const Conditionnement: FC = (): ReactElement => {
+  const [searchConditionnement, setSearchConditionnement] =
+    useState<string>("");
 
-  const loadingRetrieve = useSelector(uniteVenteLoadingRetrieve);
-  const loadingDelete = useSelector(uniteVenteLoadingDelete);
-  const listUniteVentes = useSelector(selectUniteVentes);
+  const loadingRetrieve = useSelector(conditionnementLoadingRetrieve);
+  const loadingDelete = useSelector(conditionnementLoadingDelete);
+  const listConditionnements = useSelector(selectConditionnements);
 
-  const [utvIndex, setUtvIndex] = useState<number | null>(null);
-  const [idUtvToDelete, setIdUtvToDelete] = useState<number | null>(null);
+  const [condIndex, setCondIndex] = useState<number | null>(null);
+  const [idCondToDelete, setIdCondToDelete] = useState<number | null>(null);
 
-  const [utvToUpdate, setUtvToUpdate] = useState<uniteVente | null>(null);
+  const [conditionnementToUpdate, setConditionnementToUpdate] =
+    useState<conditionnement | null>(null);
 
   const [page, setPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(5);
 
-  const [showNewUtv, setShowNewUtv] = useState<boolean>(false);
-  const [showUpdateUtv, setShowUpdateUtv] = useState<boolean>(false);
+  const [showNewCond, setShowNewCond] = useState<boolean>(false);
+  const [showUpdateCond, setShowUpdateCond] = useState<boolean>(false);
   const [showModalConfirm, setShowModalConfirm] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(retrieveUniteVente(searchUniteVente));
+    dispatch(retrieveConditionnement(searchConditionnement));
   }, [dispatch]);
 
-  const onChangeSearchUniteVente = (e: any) => {
-    setSearchUniteVente(e.target.value);
+  const onChangeSearchConditionnement = (e: any) => {
+    setSearchConditionnement(e.target.value);
   };
 
-  const deleteUtv = (id: number, index: number): void => {
+  const deleteCond = (id: number, index: number): void => {
     setShowModalConfirm(true);
-    setIdUtvToDelete(id);
-    setUtvIndex(index);
+    setIdCondToDelete(id);
+    setCondIndex(index);
   };
 
   const onDeleteModalAccept = (): void => {
     setShowModalConfirm(false);
-    dispatch(deleteUniteVente(idUtvToDelete!));
+    dispatch(deleteConditionnement(idCondToDelete!));
   };
 
   return (
     <div>
       <h5 className="sub-title">
-        <IconBs.BsFillCartPlusFill className="me-2" />
-        Sales unit
+        <IconBs.BsFillBoxSeamFill className="me-2" />
+        Conditioning
       </h5>
 
       <div className="d-flex mb-2">
         <button
           className="btn btn-success btn-sm d-flex align-items-middle fs-18 py-0"
-          onClick={() => setShowNewUtv(true)}
+          onClick={() => setShowNewCond(true)}
         >
           <IconFi.FiPlus className="w-100 h-100" />
         </button>
@@ -78,18 +81,20 @@ const UniteVente: FC = (): ReactElement => {
           <input
             type="text"
             className="form-control"
-            placeholder="Sales unit"
-            value={searchUniteVente}
-            onChange={onChangeSearchUniteVente}
+            placeholder="Category"
+            value={searchConditionnement}
+            onChange={onChangeSearchConditionnement}
             onKeyDown={(e: any) => {
               if (e.key === "Enter")
-                dispatch(retrieveUniteVente(searchUniteVente));
+                dispatch(retrieveConditionnement(searchConditionnement));
             }}
           />
           <button
             className="input-group-text btn btn-primary"
             type="button"
-            onClick={() => dispatch(retrieveUniteVente(searchUniteVente))}
+            onClick={() =>
+              dispatch(retrieveConditionnement(searchConditionnement))
+            }
           >
             <IconBs.BsSearch className="w-100 h-100" />
           </button>
@@ -97,7 +102,7 @@ const UniteVente: FC = (): ReactElement => {
       </div>
 
       {!loadingRetrieve ? (
-        !listUniteVentes.length ? (
+        !listConditionnements.length ? (
           <p className="result fw-bold text-center pt-1">No results</p>
         ) : (
           <>
@@ -105,40 +110,42 @@ const UniteVente: FC = (): ReactElement => {
               <thead>
                 <tr>
                   <th scope="col">id</th>
-                  <th scope="col">Sales unit</th>
+                  <th scope="col">Conditionnement</th>
                   <th scope="col" className="text-center">
                     Action
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {listUniteVentes
+                {listConditionnements
                   .slice(
                     (page - 1) * pageSize,
                     (page - 1) * pageSize + pageSize
                   )
-                  .map((uniteVente: uniteVente, index: number) => {
+                  .map((conditionnement: conditionnement, index: number) => {
                     return (
                       <tr key={index}>
                         <th scope="row" style={{ verticalAlign: "middle" }}>
-                          {uniteVente.id}
+                          {conditionnement.id}
                         </th>
-                        <td>{uniteVente.utvArt}</td>
+                        <td>{conditionnement.condArt}</td>
                         <td className="text-center">
                           <button
                             className="btn btn-dark-b btn-sm box-sdw rounded-pill me-2"
                             onClick={() => {
-                              setShowUpdateUtv(true);
-                              setUtvToUpdate(uniteVente);
+                              setShowUpdateCond(true);
+                              setConditionnementToUpdate(conditionnement);
                             }}
                           >
                             <IconFa.FaEdit />
                           </button>
                           <button
                             className="btn btn-danger btn-sm box-sdw rounded-pill"
-                            onClick={() => deleteUtv(uniteVente.id, index)}
+                            onClick={() =>
+                              deleteCond(conditionnement.id, index)
+                            }
                           >
-                            {loadingDelete && utvIndex === index && (
+                            {loadingDelete && condIndex === index && (
                               <span className="spinner-border spinner-border-sm me-1"></span>
                             )}
                             <IconBs.BsFillTrash3Fill />
@@ -155,7 +162,7 @@ const UniteVente: FC = (): ReactElement => {
                 last
                 page={page}
                 // between={2}
-                total={listUniteVentes.length}
+                total={listConditionnements.length}
                 limit={pageSize}
                 changePage={(page) => {
                   setPage(page);
@@ -185,21 +192,21 @@ const UniteVente: FC = (): ReactElement => {
       )}
 
       <ModalNewPackage
-        show={showNewUtv}
-        package={"Sales unit"}
-        onHide={() => setShowNewUtv(false)}
+        show={showNewCond}
+        package={"Conditionnement"}
+        onHide={() => setShowNewCond(false)}
       >
-        <IconBs.BsFillCartPlusFill />
+        <IconBs.BsFillBoxSeamFill />
       </ModalNewPackage>
 
-      {utvToUpdate && (
+      {conditionnementToUpdate && (
         <ModalUpdatePackage
-          data={utvToUpdate}
-          show={showUpdateUtv}
-          package={UNITEVENTE}
+          data={conditionnementToUpdate}
+          show={showUpdateCond}
+          package={CONDITIONNEMENT}
           onHide={() => {
-            setShowUpdateUtv(false);
-            setUtvToUpdate(null);
+            setShowUpdateCond(false);
+            setConditionnementToUpdate(null);
           }}
         >
           <IconBs.BsFillBoxSeamFill />
@@ -213,10 +220,10 @@ const UniteVente: FC = (): ReactElement => {
         }}
         onAccept={onDeleteModalAccept}
       >
-        Do you really want to delete this sales unit ?
+        Do you really want to delete this conditionnement ?
       </ModalConfirm>
     </div>
   );
 };
 
-export default UniteVente;
+export default Conditionnement;

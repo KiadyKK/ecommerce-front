@@ -1,0 +1,20 @@
+.body-agence {
+  width: calc(100% - 2.6rem);
+  height: 100vh;
+  margin-right: 2.6rem;
+  z-index: 0;
+  position: relative;
+  // top: 50px;
+  transition: all 0.5s ease;
+  font-size: 14px;
+}
+
+.body-trimmed-agence {
+  width: calc(100% - 15rem);
+  margin-right: 15rem;
+}
+
+.body-md-screen-agence {
+  width: calc(100% - 2.6rem);
+  margin-right: 2.6rem;
+}

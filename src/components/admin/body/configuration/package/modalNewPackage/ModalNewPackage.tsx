@@ -8,20 +8,20 @@ import {
   categoryLoadingCreate,
   createCategory,
   resetError as resetErrorCategory,
-} from "../../../../../../../slices/categorySlice";
+} from "../../../../../../slices/categorySlice";
 import {
   conditionnementError,
   conditionnementLoadingCreate,
   createConditionnement,
   resetError as resetErrorConditionnement,
-} from "../../../../../../../slices/conditionnementSlice";
+} from "../../../../../../slices/conditionnementSlice";
 import {
   createUniteVente,
   resetError as resetErrorUniteVente,
   uniteVenteError,
   uniteVenteLoadingCreate,
-} from "../../../../../../../slices/uniteVenteSlice";
-import { AppDispatch } from "../../../../../../../store";
+} from "../../../../../../slices/uniteVenteSlice";
+import { AppDispatch } from "../../../../../../store";
 import "./ModalNewPackage.scss";
 
 type props = PropsWithChildren<{

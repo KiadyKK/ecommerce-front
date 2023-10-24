@@ -67,12 +67,12 @@
           transition: none !important;
           background-color: var(--blue-opac);
           font-weight: bold;
-          border-left: 4px solid var(--blue);
+          border-right: 4px solid var(--blue);
 
           //menu.icon
           .sidenav-link-icon {
             transition: none !important;
-            margin-left: 0.08rem !important;
+            margin-right: 0.08rem !important;
           }
         }
 
@@ -132,12 +132,12 @@
             transition: none !important;
             background-color: var(--brown-opac);
             font-weight: bold;
-            border-left: 4px solid var(--brown);
+            border-right: 4px solid var(--brown);
 
             //menu.icon
             .sidenav-link-icon {
               transition: none !important;
-              margin-left: 0.08rem !important;
+              margin-right: 0.08rem !important;
             }
           }
 

@@ -1,10 +1,11 @@
 import { FC, ReactElement } from "react";
-import "./Configuration.scss";
-import { NavLink } from "react-router-dom";
 import * as IconFi from "react-icons/fi";
 import * as IconTb from "react-icons/tb";
+import { NavLink } from "react-router-dom";
+import "./Configuration.scss";
 
 const Configuration: FC = (): ReactElement => {
+  
   return (
     <div className="container-fluid h-100">
       <div className="wrap-config my-3 row h-100 d-flex align-items-center">

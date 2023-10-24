@@ -7,7 +7,7 @@ import {
   CATEGORY,
   CONDITIONNEMENT,
   UNITEVENTE,
-} from "../../../../../../../shared/constant/constant";
+} from "../../../../../../shared/constant/constant";
 import "./ModalUpdatePackage.scss";
 
 import {
@@ -15,23 +15,23 @@ import {
   categoryLoadingUpdate,
   resetError as resetErrorCategory,
   updateCategory,
-} from "../../../../../../../slices/categorySlice";
+} from "../../../../../../slices/categorySlice";
 import {
   conditionnementError,
   conditionnementLoadingUpdate,
   resetError as resetErrorConditionnement,
   updateConditionnement,
-} from "../../../../../../../slices/conditionnementSlice";
+} from "../../../../../../slices/conditionnementSlice";
 import {
   resetError as resetErrorUniteVente,
   uniteVenteError,
   uniteVenteLoadingUpdate,
   updateUniteVente,
-} from "../../../../../../../slices/uniteVenteSlice";
-import { AppDispatch } from "../../../../../../../store";
-import category from "../../../../../../../types/categorie/categorie";
-import conditionnement from "../../../../../../../types/conditionnement/conditionnement";
-import uniteVente from "../../../../../../../types/uniteVente/uniteVente";
+} from "../../../../../../slices/uniteVenteSlice";
+import { AppDispatch } from "../../../../../../store";
+import category from "../../../../../../types/categorie/categorie";
+import conditionnement from "../../../../../../types/conditionnement/conditionnement";
+import uniteVente from "../../../../../../types/uniteVente/uniteVente";
 
 type data = category | conditionnement | uniteVente;
 

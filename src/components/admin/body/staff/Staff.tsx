@@ -1,10 +1,11 @@
 import { FC, ReactElement } from "react";
-import { NavLink } from "react-router-dom";
-import "./Staff.scss";
 import * as IconBs from "react-icons/bs";
 import * as IconFa from "react-icons/fa";
+import { NavLink } from "react-router-dom";
+import "./Staff.scss";
 
 const Staff: FC = (): ReactElement => {
+  
   return (
     <div className="container-fluid h-100">
       <div className="wrap-staff my-3 row h-100 d-flex align-items-center">

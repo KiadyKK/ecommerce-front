@@ -2,9 +2,10 @@ import { FC, ReactElement } from "react";
 import { Route, Routes } from "react-router-dom";
 import "./Body.scss";
 import Agence from "./agence/Agence";
+import MenuAgence from "./agence/menuAgence/MenuAgence";
 import Configuration from "./configuration/Configuration";
 import Package from "./configuration/package/Package";
-import Article from "./configuration/package/article/Article";
+import Article from "./configuration/article/Article";
 import Staff from "./staff/Staff";
 import Confirm from "./staff/confirm/Confirm";
 import ListPers from "./staff/listPers/ListPers";
@@ -38,7 +39,8 @@ const Body: FC<props> = ({ collapsed, screenWidth }): ReactElement => {
         <Route path="configuration/article" element={<Article />} />
 
         <Route path="agence" element={<Agence />} />
-        <Route path="agence/detail/:abr" element={<DetailAgence />} />
+        <Route path="agence/:abr" element={<MenuAgence />} />
+        <Route path="agence/:abr/*" element={<DetailAgence />} />
       </Routes>
     </div>
   );
