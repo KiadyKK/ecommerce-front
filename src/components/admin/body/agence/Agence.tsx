@@ -28,6 +28,7 @@ import { AppDispatch } from "../../../../store";
 import agence from "../../../../types/agence/agence";
 import "./Agence.scss";
 import ModalNewAgence from "./modalNewAgence/ModalNewAgence";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object().shape({
   abrAgc: Yup.string().required("Abbreviation is required"),
@@ -48,7 +49,7 @@ const Agence: FC = (): ReactElement => {
   const [showModalNewAgc, setShowModalNewAgc] = useState<boolean>(false);
 
   const [page, setPage] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(5);
+  const [pageSize, setPageSize] = useState<number>(10);
 
   const [modify, setModify] = useState<boolean>(false);
   const [btnModify, setBtnModify] = useState<boolean>(false);
@@ -68,6 +69,8 @@ const Agence: FC = (): ReactElement => {
   });
 
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(retrieveAgences(searchAgc));
@@ -264,11 +267,8 @@ const Agence: FC = (): ReactElement => {
                             <button
                               type="button"
                               className="btn btn-info btn-sm box-sdw rounded-pill me-2"
-                              // onClick={() => deleteAgc(agence.abrAgc, index)}
+                              onClick={() => navigate(`detail/${agence.abrAgc.toLocaleLowerCase()}`)}
                             >
-                              {loadingDelete && agcIndex === index && (
-                                <span className="spinner-border spinner-border-sm me-1"></span>
-                              )}
                               <IconTi.TiInfoLarge className="fs-16" />
                             </button>
 
@@ -311,7 +311,7 @@ const Agence: FC = (): ReactElement => {
                   setPageSize(+e.target.value);
                   setPage(1);
                 }}
-                defaultValue="4"
+                defaultValue={pageSize}
               >
                 <option value="5">5</option>
                 <option value="10">10</option>

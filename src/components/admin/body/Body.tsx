@@ -8,6 +8,7 @@ import Article from "./configuration/package/article/Article";
 import Staff from "./staff/Staff";
 import Confirm from "./staff/confirm/Confirm";
 import ListPers from "./staff/listPers/ListPers";
+import DetailAgence from "./agence/detailAgence/DetailAgence";
 
 type props = {
   collapsed: boolean;
@@ -37,6 +38,7 @@ const Body: FC<props> = ({ collapsed, screenWidth }): ReactElement => {
         <Route path="configuration/article" element={<Article />} />
 
         <Route path="agence" element={<Agence />} />
+        <Route path="agence/detail/:abr" element={<DetailAgence />} />
       </Routes>
     </div>
   );

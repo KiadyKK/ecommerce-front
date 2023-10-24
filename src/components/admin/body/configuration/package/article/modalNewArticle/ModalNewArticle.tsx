@@ -117,6 +117,7 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
     register,
     handleSubmit,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<article>({
     resolver: yupResolver(validationSchema),
@@ -148,6 +149,13 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
 
   const resetError = () => setErrorArt(undefined);
 
+  const cancel = () => {
+    reset();
+    props.onHide();
+    resetError();
+    setPreviewImage(undefined);
+  };
+
   const onSubmit = (article: article) => {
     let formData = new FormData();
     const file = article.imgArt[0];
@@ -162,6 +170,8 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
         showToast(SUCCESS, `Article with reference ${article.refArt} created successfully !`);
         setProgress(0);
         props.onSubmit();
+        reset();
+        setPreviewImage(undefined);
       })
       .catch((errors) => {
         showToast(ERROR, errors.response.data);
@@ -268,7 +278,7 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
             </div>
             <div className="col-md-6">
               {loadingRetrieveCat ? (
-                <Skeleton className="select-skel"/>
+                <Skeleton className="select-skel" />
               ) : (
                 <>
                   <div className="d-flex">
@@ -385,7 +395,7 @@ const ModalNewArticle: FC<props> = (props): ReactElement => {
           <button
             type="button"
             className="btn btn-light-dark btn-sm d-flex align-items-center"
-            onClick={() => props.onHide()}
+            onClick={cancel}
           >
             <IconSl.SlClose className="fs-18 me-1" />
             Cancel
